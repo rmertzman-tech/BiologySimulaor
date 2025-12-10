@@ -762,16 +762,16 @@
                         <span style="font-size: 0.95em;">Explore Sapolsky's 7 biological timescales—from neural (seconds) to systemic (years)—all affected simultaneously</span>
                     </div>
                     <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 6px;">
-                        <strong style="display: block; margin-bottom: 8px;">📖 Your Story</strong>
+                        <strong style="display: block; margin-bottom: 8px;">📖 Monthly Reality</strong>
                         <span style="font-size: 0.95em;">Read month-by-month narratives showing concrete workplace events that ground abstract metrics in lived reality</span>
                     </div>
                     <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 6px;">
-                        <strong style="display: block; margin-bottom: 8px;">💪 Discover Your Phenotype</strong>
-                        <span style="font-size: 0.95em;">Learn whether you're orchid (sensitive), tulip (balanced), or dandelion (resilient)—and why it matters</span>
+                        <strong style="display: block; margin-bottom: 8px;">💪 Compare Phenotypes</strong>
+                        <span style="font-size: 0.95em;">See how orchids (sensitive), tulips (balanced), and dandelions (resilient) respond differently in the same systems</span>
                     </div>
                     <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 6px;">
-                        <strong style="display: block; margin-bottom: 8px;">🛡️ Agency Through Understanding</strong>
-                        <span style="font-size: 0.95em;">Recognize extractive patterns, understand BioBonds as solutions, make informed decisions about where you work</span>
+                        <strong style="display: block; margin-bottom: 8px;">💰 Financial Truth-Telling</strong>
+                        <span style="font-size: 0.95em;">View Impact-Weighted Accounts (IFVI) showing how BioBond policy reveals true profitability vs accounting fraud</span>
                     </div>
                 </div>
                 
@@ -1041,13 +1041,13 @@
                         
                         <!-- Financial Reality Panel A (IFVI Standard) -->
                         <div id="financial-reality-a" style="display: none; margin-top: 20px;">
-                            <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 15px; border-radius: 8px; cursor: pointer;" onclick="toggleFinancial('a')" role="button" tabindex="0" aria-expanded="false" aria-controls="financial-content-a">
+                            <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 15px; border-radius: 8px 8px 0 0; cursor: pointer;" onclick="toggleFinancial('a')" role="button" tabindex="0" aria-expanded="true" aria-controls="financial-content-a">
                                 <h4 style="margin: 0; color: white; font-size: 1.05em; display: flex; align-items: center; justify-content: space-between;">
-                                    <span>💰 Impact-Weighted Accounting (IFVI Standard)</span>
-                                    <span id="financial-arrow-a" style="font-size: 1.2em;">▼</span>
+                                    <span>💰 Impact-Weighted Accounting (IFVI Standard) - Click to collapse/expand</span>
+                                    <span id="financial-arrow-a" style="font-size: 1.2em;">▲</span>
                                 </h4>
                             </div>
-                            <div id="financial-content-a" style="display: none; padding: 20px; background: #f0fdf4; border: 2px solid #10b981; border-top: none; border-radius: 0 0 8px 8px;"></div>
+                            <div id="financial-content-a" style="display: block; padding: 20px; background: #f0fdf4; border: 2px solid #10b981; border-top: none; border-radius: 0 0 8px 8px;"></div>
                         </div>
                         
                         <div id="comp-timeline-a" style="margin-top: 20px; padding: 15px; background: white; border-radius: 6px; max-height: 200px; overflow-y: auto;" role="log" aria-label="Scenario A timeline of events">
@@ -1114,13 +1114,13 @@
                         
                         <!-- Financial Reality Panel B (IFVI Standard) -->
                         <div id="financial-reality-b" style="display: none; margin-top: 20px;">
-                            <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 15px; border-radius: 8px; cursor: pointer;" onclick="toggleFinancial('b')" role="button" tabindex="0" aria-expanded="false" aria-controls="financial-content-b">
+                            <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 15px; border-radius: 8px 8px 0 0; cursor: pointer;" onclick="toggleFinancial('b')" role="button" tabindex="0" aria-expanded="true" aria-controls="financial-content-b">
                                 <h4 style="margin: 0; color: white; font-size: 1.05em; display: flex; align-items: center; justify-content: space-between;">
-                                    <span>💰 Impact-Weighted Accounting (IFVI Standard)</span>
-                                    <span id="financial-arrow-b" style="font-size: 1.2em;">▼</span>
+                                    <span>💰 Impact-Weighted Accounting (IFVI Standard) - Click to collapse/expand</span>
+                                    <span id="financial-arrow-b" style="font-size: 1.2em;">▲</span>
                                 </h4>
                             </div>
-                            <div id="financial-content-b" style="display: none; padding: 20px; background: #f0fdf4; border: 2px solid #10b981; border-top: none; border-radius: 0 0 8px 8px;"></div>
+                            <div id="financial-content-b" style="display: block; padding: 20px; background: #f0fdf4; border: 2px solid #10b981; border-top: none; border-radius: 0 0 8px 8px;"></div>
                         </div>
                         
                         <div id="comp-timeline-b" style="margin-top: 20px; padding: 15px; background: white; border-radius: 6px; max-height: 200px; overflow-y: auto;" role="log" aria-label="Scenario B timeline of events">
@@ -1950,6 +1950,7 @@
                 return;
             }
             
+            // Show the financial panel
             document.getElementById(`financial-reality-${id}`).style.display = 'block';
             
             const contentEl = document.getElementById(`financial-content-${id}`);
