@@ -566,6 +566,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
         }
         
         .play-button:hover {
@@ -574,7 +575,18 @@
         }
         
         .play-button.playing {
-            background: #f56565;
+            background: #ed8936;
+            box-shadow: 0 4px 12px rgba(237, 137, 54, 0.3);
+            animation: pulse-playing 2s ease-in-out infinite;
+        }
+        
+        .play-button.playing:hover {
+            box-shadow: 0 10px 30px rgba(237, 137, 54, 0.4);
+        }
+        
+        @keyframes pulse-playing {
+            0%, 100% { box-shadow: 0 4px 12px rgba(237, 137, 54, 0.3); }
+            50% { box-shadow: 0 4px 20px rgba(237, 137, 54, 0.6); }
         }
         
         .timeline-event {
@@ -873,8 +885,42 @@
                 <h2 id="comparison-results-heading" style="color: #667eea; margin-bottom: 20px; text-align: center;">Comparison Results</h2>
                 
                 <div style="text-align: center; margin-bottom: 30px;">
-                    <p style="font-size: 1.2em; font-weight: 600; margin-bottom: 10px;">Week <span id="comp-week-display">0</span></p>
-                    <button class="play-button" id="comp-play-button" onclick="toggleComparisonPlay()" aria-label="Play or pause comparison simulation">▶️</button>
+                    <p style="font-size: 1.2em; font-weight: 600; margin-bottom: 10px;">Week <span id="comp-week-display">0</span> of 12</p>
+                    
+                    <!-- Play Controls -->
+                    <div style="margin-bottom: 20px;">
+                        <button class="play-button" id="comp-play-button" onclick="toggleComparisonPlay()" aria-label="Play or pause comparison simulation">▶️</button>
+                        <button class="button" onclick="stepForward()" style="padding: 15px 30px; font-size: 1.1em; margin-left: 15px;" aria-label="Advance one week">Next Week →</button>
+                    </div>
+                    
+                    <!-- Speed Control -->
+                    <div style="max-width: 400px; margin: 0 auto 20px; padding: 20px; background: #f7fafc; border-radius: 8px; border: 2px solid #e2e8f0;">
+                        <label for="speed-control" style="font-weight: 600; margin-bottom: 10px; display: block;">
+                            Simulation Speed: <span id="speed-display" aria-live="polite">3 seconds per week</span>
+                        </label>
+                        <input 
+                            type="range" 
+                            id="speed-control" 
+                            min="1" 
+                            max="5" 
+                            value="3" 
+                            step="1"
+                            oninput="updateSpeed()"
+                            style="width: 100%;"
+                            aria-label="Simulation speed from 1 to 5 seconds per week"
+                            aria-valuemin="1"
+                            aria-valuemax="5"
+                            aria-valuenow="3">
+                        <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 0.85em; color: #718096;">
+                            <span>Fast (1s)</span>
+                            <span>Moderate (3s)</span>
+                            <span>Slow (5s)</span>
+                        </div>
+                        <p style="margin-top: 10px; font-size: 0.9em; color: #4a5568; text-align: left;">
+                            <strong>Tip:</strong> Use slower speeds to read symptom logs and watch metrics change. Use "Next Week" button to examine each week carefully.
+                        </p>
+                    </div>
+                    
                     <div style="margin-top: 15px;">
                         <button class="button button-secondary" onclick="resetComparison()" style="padding: 10px 30px; font-size: 1em;" aria-label="Reset comparison simulation">Reset</button>
                     </div>
@@ -1000,6 +1046,8 @@
             isRunning: false,
             intervalId: null,
             choicePointShown: false,
+            speed: 3000, // milliseconds per week (default 3 seconds)
+            autoPauseOnCritical: true,
             scenarioA: {
                 sensitivity: null,
                 stress: null,
@@ -1035,6 +1083,49 @@
             document.getElementById(`comp-biobond-${scenario}`).value = value;
             document.getElementById(`comp-biobond-display-${scenario}`).textContent = value + '%';
             announce(`Set ${scenario === 'a' ? 'Scenario A' : 'Scenario B'} BioBond to ${value} percent`);
+        }
+        
+        function updateSpeed() {
+            const speedValue = parseInt(document.getElementById('speed-control').value);
+            comparisonState.speed = speedValue * 1000; // Convert to milliseconds
+            document.getElementById('speed-display').textContent = `${speedValue} second${speedValue > 1 ? 's' : ''} per week`;
+            
+            // If simulation is running, restart with new speed
+            if (comparisonState.isRunning) {
+                clearInterval(comparisonState.intervalId);
+                startInterval();
+            }
+            
+            announce(`Speed set to ${speedValue} seconds per week`);
+        }
+        
+        function stepForward() {
+            // If already at week 12, don't advance
+            if (comparisonState.week >= 12) {
+                announce('Simulation complete at week 12');
+                return;
+            }
+            
+            // Pause if running
+            if (comparisonState.isRunning) {
+                pauseComparison();
+            }
+            
+            // Check for choice point at week 6
+            if (comparisonState.week === 5 && !comparisonState.choicePointShown) {
+                if (comparisonState.scenarioA.environment === 'extractive' || comparisonState.scenarioB.environment === 'extractive') {
+                    showChoicePoint();
+                    return;
+                }
+            }
+            
+            // Advance one week
+            advanceComparisonWeek();
+            
+            // Check if complete
+            if (comparisonState.week >= 12) {
+                showComparisonSummary();
+            }
         }
         
         function runComparison() {
@@ -1111,9 +1202,14 @@
         function playComparison() {
             comparisonState.isRunning = true;
             document.getElementById('comp-play-button').textContent = '⏸️';
+            document.getElementById('comp-play-button').classList.add('playing');
             document.getElementById('comp-play-button').setAttribute('aria-label', 'Pause comparison simulation');
             announce('Comparison simulation playing');
             
+            startInterval();
+        }
+        
+        function startInterval() {
             comparisonState.intervalId = setInterval(() => {
                 // Check for choice point at week 6 in extractive environments
                 if (comparisonState.week === 5 && !comparisonState.choicePointShown) {
@@ -1125,16 +1221,31 @@
                 }
                 
                 advanceComparisonWeek();
+                
+                // Auto-pause on critical events if enabled
+                if (comparisonState.autoPauseOnCritical) {
+                    const lastEventA = comparisonState.scenarioA.events[comparisonState.scenarioA.events.length - 1];
+                    const lastEventB = comparisonState.scenarioB.events[comparisonState.scenarioB.events.length - 1];
+                    
+                    if ((lastEventA && lastEventA.type === 'critical' && lastEventA.week === comparisonState.week) ||
+                        (lastEventB && lastEventB.type === 'critical' && lastEventB.week === comparisonState.week)) {
+                        pauseComparison();
+                        announce(`Paused at week ${comparisonState.week} - critical event occurred. Press play to continue or use Next Week button.`);
+                        return;
+                    }
+                }
+                
                 if (comparisonState.week >= 12) {
                     pauseComparison();
                     showComparisonSummary();
                 }
-            }, 1000);
+            }, comparisonState.speed); // Use variable speed
         }
         
         function pauseComparison() {
             comparisonState.isRunning = false;
             document.getElementById('comp-play-button').textContent = '▶️';
+            document.getElementById('comp-play-button').classList.remove('playing');
             document.getElementById('comp-play-button').setAttribute('aria-label', 'Play comparison simulation');
             clearInterval(comparisonState.intervalId);
             announce('Comparison simulation paused');
@@ -1190,9 +1301,16 @@
             
             updateComparisonDisplay();
             
-            if (comparisonState.week % 3 === 0) {
-                announce(`Week ${comparisonState.week} complete`);
+            // Announce progress every 2 weeks or on critical events
+            if (comparisonState.week % 2 === 0) {
+                announce(`Week ${comparisonState.week} of 12`);
             }
+            
+            // Scroll to latest events in timelines
+            const timelineA = document.getElementById('comp-timeline-a');
+            const timelineB = document.getElementById('comp-timeline-b');
+            if (timelineA) timelineA.scrollTop = timelineA.scrollHeight;
+            if (timelineB) timelineB.scrollTop = timelineB.scrollHeight;
         }
         
         function calculateScenarioWeek(scenario, week) {
@@ -1517,6 +1635,9 @@
             document.getElementById('comp-final-summary').style.display = 'none';
             document.getElementById('choice-modal').style.display = 'none';
             
+            // Keep speed setting - don't reset it
+            // comparisonState.speed stays as user configured
+            
             comparisonState.scenarioA.data = { 
                 lgc: [calculateInitialLGC(comparisonState.scenarioA.sensitivity)], 
                 cpfc: [0.85], 
@@ -1540,7 +1661,7 @@
             comparisonState.scenarioB.choiceMade = null;
             
             updateComparisonDisplay();
-            announce('Comparison reset to week zero');
+            announce('Comparison reset to week zero. Speed setting maintained.');
         }
     </script>
 </body>
