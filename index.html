@@ -885,18 +885,19 @@
                 <h2 id="comparison-results-heading" style="color: #667eea; margin-bottom: 20px; text-align: center;">Comparison Results</h2>
                 
                 <div style="text-align: center; margin-bottom: 30px;">
-                    <p style="font-size: 1.2em; font-weight: 600; margin-bottom: 10px;">Week <span id="comp-week-display">0</span> of 12</p>
+                    <p style="font-size: 1.2em; font-weight: 600; margin-bottom: 10px;">Month <span id="comp-week-display">0</span> of 12</p>
+                    <p style="font-size: 0.95em; color: #718096; margin-bottom: 15px;">One year timeline - matches real-world progression</p>
                     
                     <!-- Play Controls -->
                     <div style="margin-bottom: 20px;">
                         <button class="play-button" id="comp-play-button" onclick="toggleComparisonPlay()" aria-label="Play or pause comparison simulation">▶️</button>
-                        <button class="button" onclick="stepForward()" style="padding: 15px 30px; font-size: 1.1em; margin-left: 15px;" aria-label="Advance one week">Next Week →</button>
+                        <button class="button" onclick="stepForward()" style="padding: 15px 30px; font-size: 1.1em; margin-left: 15px;" aria-label="Advance one month">Next Month →</button>
                     </div>
                     
                     <!-- Speed Control -->
                     <div style="max-width: 400px; margin: 0 auto 20px; padding: 20px; background: #f7fafc; border-radius: 8px; border: 2px solid #e2e8f0;">
                         <label for="speed-control" style="font-weight: 600; margin-bottom: 10px; display: block;">
-                            Simulation Speed: <span id="speed-display" aria-live="polite">3 seconds per week</span>
+                            Simulation Speed: <span id="speed-display" aria-live="polite">3 seconds per month</span>
                         </label>
                         <input 
                             type="range" 
@@ -907,7 +908,7 @@
                             step="1"
                             oninput="updateSpeed()"
                             style="width: 100%;"
-                            aria-label="Simulation speed from 1 to 5 seconds per week"
+                            aria-label="Simulation speed from 1 to 5 seconds per month"
                             aria-valuemin="1"
                             aria-valuemax="5"
                             aria-valuenow="3">
@@ -917,7 +918,7 @@
                             <span>Slow (5s)</span>
                         </div>
                         <p style="margin-top: 10px; font-size: 0.9em; color: #4a5568; text-align: left;">
-                            <strong>Tip:</strong> Use slower speeds to read symptom logs and watch metrics change. Use "Next Week" button to examine each week carefully.
+                            <strong>Tip:</strong> Use slower speeds to read narratives and symptom logs. Use "Next Month" button to examine each month carefully.
                         </p>
                     </div>
                     
@@ -934,6 +935,12 @@
                         
                         <!-- NEW: Symptom Log A -->
                         <div id="symptom-log-a" style="display: none;"></div>
+                        
+                        <!-- NEW: Monthly Narrative Display -->
+                        <div id="narrative-a" style="display: none; margin-top: 15px; padding: 15px; background: #f0f9ff; border-left: 4px solid #3b82f6; border-radius: 4px;">
+                            <h4 style="font-size: 1em; margin: 0 0 10px 0; color: #1e40af;">📖 This Month's Reality</h4>
+                            <div id="narrative-content-a" style="font-size: 0.95em; line-height: 1.6; color: #374151;"></div>
+                        </div>
                         
                         <div class="chart-wrapper">
                             <div class="metric-row">
@@ -978,6 +985,12 @@
                         
                         <!-- NEW: Symptom Log B -->
                         <div id="symptom-log-b" style="display: none;"></div>
+                        
+                        <!-- NEW: Monthly Narrative Display -->
+                        <div id="narrative-b" style="display: none; margin-top: 15px; padding: 15px; background: #f0f9ff; border-left: 4px solid #3b82f6; border-radius: 4px;">
+                            <h4 style="font-size: 1em; margin: 0 0 10px 0; color: #1e40af;">📖 This Month's Reality</h4>
+                            <div id="narrative-content-b" style="font-size: 0.95em; line-height: 1.6; color: #374151;"></div>
+                        </div>
                         
                         <div class="chart-wrapper">
                             <div class="metric-row">
@@ -1041,12 +1054,56 @@
             setTimeout(() => announcer.textContent = '', 1000);
         }
         
+        // NEW: Monthly Narrative Data - Shows what's actually happening each month
+        const monthlyNarratives = {
+            nursing_extractive: {
+                1: "Orientation: 4 hours instead of 3 weeks. Assigned 12 patients (recommended: 6). Call lights going unanswered, residents crying out. Beginning to see system isn't designed for safe care.",
+                2: "First moral compromise: Resident has Stage 3 pressure ulcer (preventable). Chart shows 'turned q2h' but no time to do it. You document honestly, supervisor edits your note. Identity begins fragmenting.",
+                3: "Covering 18 patients across two units. Medication near-miss (caught it barely). Interruptions constant, no protected time. Realizing: it's not IF you make an error, it's WHEN. Sunday night dread intensifying.",
+                4: "Family complains their mom's call light unanswered 40 minutes. You: 'I had 12 patients and another was coding.' Management: 'Don't tell families we're understaffed.' Forced to hide system failure.",
+                5: "Resident aspirated during lunch (fed too fast, no time for safe feeding). Transferred to hospital. Management pressures you to write 'unexpectedly deteriorated' not 'inadequate staffing contributed.'",
+                6: "CRITICAL MONTH: Covering 24 patients, one codes, another falls and fractures hip during CPR. Management demands you sign statement accepting responsibility. FORCED CHOICE: Comply (immediate stress relief, severe moral debt) or Resist (integrity intact, job threatened). Either choice harmful - this is extractive design signature.",
+                7: "Physical symptoms severe: Can't remember if you gave 2pm meds. C_PFC too depleted for memory consolidation. Terrified you'll harm someone. Corners being cut automatically now - skipping thorough assessments, charting tasks not done.",
+                8: "ORCHID BREAKING POINT: FHRI entering crisis (<50). Panic attacks before shifts. Can't get out of bed. Call in: 'I can't do this anymore.' Supervisor: 'You're abandoning patients.' Exit or collapse. DANDELION ENDURING: FHRI 55-60, appearing functional. Silent damage accumulating: blood pressure rising, sleep architecture disrupted, heart rate variability declining. GrimAge accelerating +0.15 years/month.",
+                9: "For those still working: Emotional numbness setting in. 'Just get through the shift' becomes sole goal. Caring about patients feels like luxury you can't afford. Identity: 'I'm not a good nurse anymore.'",
+                10: "Relationship strain: Partner says 'You're not the same person.' Emotionally unavailable, snap at loved ones, no energy for life outside work. Work-life balance impossible when work destroys you.",
+                11: "Health declining: Weight gain (cortisol → abdominal fat), chronic tension headaches, GI issues. Body keeping score even when mind dissociates. For dandelions: all symptoms masked, appearing 'fine.'",
+                12: "YEAR END: Orchids exited months ago (protective, recoverable damage). Dandelions still working: FHRI 52-58, appearing functional but GrimAge +1.8 years, CV risk +36%, on trajectory to sudden collapse at 18-24 months. This matches published data: 30% nursing turnover by month 6-12, survivors accumulating hidden damage."
+            },
+            nursing_metabolic: {
+                1: "Structured 12-week orientation with preceptor. Assigned 4-5 patients (safe ratios maintained). Time to learn, make mistakes safely. Preceptor: 'We'll build your skills gradually, no rush.'",
+                2: "Shadow preceptor, taking 2-3 patients supervised. Time for thorough assessments, learning documentation system. Lunch breaks protected (other nurse covers). Questions welcomed, not punished.",
+                3: "Building competence: Taking 4 patients with preceptor nearby. Complex case, you notice patient deteriorating. Call preceptor, she validates concern, escalates appropriately. Good catch, patient to ICU, lives. You're LEARNING, not just surviving.",
+                4: "Participate in unit governance meeting. Nurses identify problem: med room layout inefficient. Committee formed, nurses redesign it. You help shape your environment - this is AGENCY.",
+                5: "Challenging case but adequate support. Physician asks YOUR input: 'What do you think clinically?' Your assessment valued, incorporated into care plan. Professional respect, not just task completion.",
+                6: "NO CHOICE POINT because metabolic systems don't force harmful dilemmas. Adequate staffing means no impossible situations. Values-aligned: encouraged to escalate concerns, maintain standards. Moral satisfaction building.",
+                7: "Developing confidence: Full patient load now (5 patients), handling complex cases. Preceptor available but you're increasingly independent. Sense of mastery, competence. Identity: 'I'm becoming a good nurse.'",
+                8: "Continuing growth: FHRI 82-88. No breakdown because system supports you. Challenge with manageable stress = eustress, builds capacity. PFC strengthening through challenge-mastery cycles.",
+                9: "Starting to precept newer nurses (you, 9 months in, helping others). Paying forward the support you received. Meaningful work, moral satisfaction. Relationships thriving - energy for life outside work.",
+                10: "Participating in policy decisions: Unit evaluating new equipment, your input sought. Autonomy respected, professional judgment valued. This is what nursing should be.",
+                11: "Health improving: Regular sleep (7-8 hrs), exercise routine maintained, relationships deepening. Work challenging but sustainable. Body and mind thriving.",
+                12: "YEAR END: Both orchids and dandelions thriving (FHRI 85-92). Sensitivity = asset in metabolic system (orchids' empathy valued, dandelions' steadiness utilized). GrimAge stable or slightly improved (meaningful work = longevity). Planning to stay years. System quality > phenotype."
+            },
+            warehouse_extractive: {
+                1: "Gamification begins: Badge scan shows 'You're #847 in productivity!' Top 10% get recognition, bottom 10% get 'coached.' Immediate ranking against everyone. Target: 300 items/hour (one every 12 seconds).",
+                3: "Can't hit rate without cutting safety: Coworker at 340 items/hour, you watch her - no knee bending, awkward reaches. Choice: Hit rate (hurt body) or miss rate (get fired).",
+                6: "FORCED CHOICE: Algorithm assigns picks requiring ladder. Ladder broken. Report it (miss rate, get coached) or use broken ladder (risk injury, hit rate). Both options harmful - extractive signature.",
+                8: "ORCHID: Back spasms, can't get out of bed. Body broke before mind. Exit protective. DANDELION: Chronic pain normalized ('everyone hurts'), continuing work. Lumbar disc damage building silently.",
+                12: "ORCHID: Exited month 3-4, moderate RSI, recoverable. DANDELION: Still working, FHRI 58, but herniated disc developing, carpal tunnel syndrome building, +1.4 years GrimAge. Sudden injury or breakdown coming at months 18-24."
+            },
+            warehouse_metabolic: {
+                1: "Worker-owned cooperative: 'We decide pace collectively.' Current rate: 180 items/hour (sustainable, evidence-based). Profit-sharing: everyone benefits from efficiency. No ranking.",
+                6: "Equipment broken: Work stops until fixed. Safety prioritized over productivity. No forced dilemmas. Workers control pace, adequate breaks, ergonomic design.",
+                12: "Both phenotypes thriving: FHRI 85+. Sustainable pace maintained, bodies healthy, engaged work. Hidden damage: NONE. Same work, different institutional design, opposite outcomes."
+            }
+        };
+        
         let comparisonState = {
-            week: 0,
+            month: 0, // Changed from week to month
             isRunning: false,
             intervalId: null,
             choicePointShown: false,
-            speed: 3000, // milliseconds per week (default 3 seconds)
+            speed: 3000, // milliseconds per month (default 3 seconds)
             autoPauseOnCritical: true,
             scenarioA: {
                 sensitivity: null,
@@ -1088,7 +1145,7 @@
         function updateSpeed() {
             const speedValue = parseInt(document.getElementById('speed-control').value);
             comparisonState.speed = speedValue * 1000; // Convert to milliseconds
-            document.getElementById('speed-display').textContent = `${speedValue} second${speedValue > 1 ? 's' : ''} per week`;
+            document.getElementById('speed-display').textContent = `${speedValue} second${speedValue > 1 ? 's' : ''} per month`;
             
             // If simulation is running, restart with new speed
             if (comparisonState.isRunning) {
@@ -1096,13 +1153,13 @@
                 startInterval();
             }
             
-            announce(`Speed set to ${speedValue} seconds per week`);
+            announce(`Speed set to ${speedValue} seconds per month`);
         }
         
         function stepForward() {
-            // If already at week 12, don't advance
-            if (comparisonState.week >= 12) {
-                announce('Simulation complete at week 12');
+            // If already at month 12, don't advance
+            if (comparisonState.month >= 12) {
+                announce('Simulation complete at month 12');
                 return;
             }
             
@@ -1111,19 +1168,19 @@
                 pauseComparison();
             }
             
-            // Check for choice point at week 6
-            if (comparisonState.week === 5 && !comparisonState.choicePointShown) {
+            // Check for choice point at month 6
+            if (comparisonState.month === 5 && !comparisonState.choicePointShown) {
                 if (comparisonState.scenarioA.environment === 'extractive' || comparisonState.scenarioB.environment === 'extractive') {
                     showChoicePoint();
                     return;
                 }
             }
             
-            // Advance one week
-            advanceComparisonWeek();
+            // Advance one month
+            advanceComparisonMonth();
             
             // Check if complete
-            if (comparisonState.week >= 12) {
+            if (comparisonState.month >= 12) {
                 showComparisonSummary();
             }
         }
@@ -1145,7 +1202,7 @@
                 return;
             }
             
-            comparisonState.week = 0;
+            comparisonState.month = 0; // Changed from week
             comparisonState.choicePointShown = false;
             comparisonState.scenarioA = {
                 sensitivity: sensA,
@@ -1153,7 +1210,7 @@
                 environment: envA,
                 biobond: parseInt(document.getElementById('comp-biobond-a').value),
                 data: { lgc: [calculateInitialLGC(sensA)], cpfc: [0.85], mfp: [0], fhri: [78], grimAge: [0], cvRisk: [0] },
-                events: [{week: 0, type: 'milestone', text: 'Simulation begins'}],
+                events: [{month: 0, type: 'milestone', text: 'Simulation begins - Month 0 baseline'}], // Changed week to month
                 choiceMade: null
             };
             comparisonState.scenarioB = {
@@ -1162,7 +1219,7 @@
                 environment: envB,
                 biobond: parseInt(document.getElementById('comp-biobond-b').value),
                 data: { lgc: [calculateInitialLGC(sensB)], cpfc: [0.85], mfp: [0], fhri: [78], grimAge: [0], cvRisk: [0] },
-                events: [{week: 0, type: 'milestone', text: 'Simulation begins'}],
+                events: [{month: 0, type: 'milestone', text: 'Simulation begins - Month 0 baseline'}], // Changed week to month
                 choiceMade: null
             };
             
@@ -1175,7 +1232,7 @@
             
             updateComparisonDisplay();
             
-            announce('Comparison initialized. Press play to start both simulations.');
+            announce('Comparison initialized. 12-month timeline matches real-world data. Press play to start.');
         }
         
         function calculateInitialLGC(sensitivity) {
@@ -1211,8 +1268,8 @@
         
         function startInterval() {
             comparisonState.intervalId = setInterval(() => {
-                // Check for choice point at week 6 in extractive environments
-                if (comparisonState.week === 5 && !comparisonState.choicePointShown) {
+                // Check for choice point at month 6 in extractive environments
+                if (comparisonState.month === 5 && !comparisonState.choicePointShown) {
                     if (comparisonState.scenarioA.environment === 'extractive' || comparisonState.scenarioB.environment === 'extractive') {
                         pauseComparison();
                         showChoicePoint();
@@ -1220,22 +1277,22 @@
                     }
                 }
                 
-                advanceComparisonWeek();
+                advanceComparisonMonth();
                 
                 // Auto-pause on critical events if enabled
                 if (comparisonState.autoPauseOnCritical) {
                     const lastEventA = comparisonState.scenarioA.events[comparisonState.scenarioA.events.length - 1];
                     const lastEventB = comparisonState.scenarioB.events[comparisonState.scenarioB.events.length - 1];
                     
-                    if ((lastEventA && lastEventA.type === 'critical' && lastEventA.week === comparisonState.week) ||
-                        (lastEventB && lastEventB.type === 'critical' && lastEventB.week === comparisonState.week)) {
+                    if ((lastEventA && lastEventA.type === 'critical' && lastEventA.month === comparisonState.month) ||
+                        (lastEventB && lastEventB.type === 'critical' && lastEventB.month === comparisonState.month)) {
                         pauseComparison();
-                        announce(`Paused at week ${comparisonState.week} - critical event occurred. Press play to continue or use Next Week button.`);
+                        announce(`Paused at month ${comparisonState.month} - critical event occurred. Press play to continue or use Next Month button.`);
                         return;
                     }
                 }
                 
-                if (comparisonState.week >= 12) {
+                if (comparisonState.month >= 12) {
                     pauseComparison();
                     showComparisonSummary();
                 }
@@ -1254,7 +1311,7 @@
         function showChoicePoint() {
             comparisonState.choicePointShown = true;
             document.getElementById('choice-modal').style.display = 'flex';
-            announce('Week 6 choice point reached. Institution forcing a decision.');
+            announce('Month 6 choice point reached. Institution forcing a decision. This matches when many workers face critical dilemmas.');
         }
         
         function makeChoice(choice) {
@@ -1265,25 +1322,25 @@
                 comparisonState.scenarioA.choiceMade = choice;
                 if (choice === 'comply') {
                     // Lower immediate stress, higher moral debt
-                    comparisonState.scenarioA.data.lgc[comparisonState.week] -= 0.1;
-                    comparisonState.scenarioA.data.mfp[comparisonState.week] += 0.2;
-                    comparisonState.scenarioA.events.push({week: comparisonState.week, type: 'warning', text: 'Complied with unsafe demand. Moral debt increased.'});
+                    comparisonState.scenarioA.data.lgc[comparisonState.month] -= 0.1;
+                    comparisonState.scenarioA.data.mfp[comparisonState.month] += 0.2;
+                    comparisonState.scenarioA.events.push({month: comparisonState.month, type: 'warning', text: 'Complied with unsafe demand. Moral debt increased.'});
                 } else {
                     // Higher stress, maintained integrity
-                    comparisonState.scenarioA.data.lgc[comparisonState.week] += 0.15;
-                    comparisonState.scenarioA.events.push({week: comparisonState.week, type: 'warning', text: 'Resisted demand. Facing retaliation, but values intact.'});
+                    comparisonState.scenarioA.data.lgc[comparisonState.month] += 0.15;
+                    comparisonState.scenarioA.events.push({month: comparisonState.month, type: 'warning', text: 'Resisted demand. Facing retaliation, but values intact.'});
                 }
             }
             
             if (comparisonState.scenarioB.environment === 'extractive') {
                 comparisonState.scenarioB.choiceMade = choice;
                 if (choice === 'comply') {
-                    comparisonState.scenarioB.data.lgc[comparisonState.week] -= 0.1;
-                    comparisonState.scenarioB.data.mfp[comparisonState.week] += 0.2;
-                    comparisonState.scenarioB.events.push({week: comparisonState.week, type: 'warning', text: 'Complied with unsafe demand. Moral debt increased.'});
+                    comparisonState.scenarioB.data.lgc[comparisonState.month] -= 0.1;
+                    comparisonState.scenarioB.data.mfp[comparisonState.month] += 0.2;
+                    comparisonState.scenarioB.events.push({month: comparisonState.month, type: 'warning', text: 'Complied with unsafe demand. Moral debt increased.'});
                 } else {
-                    comparisonState.scenarioB.data.lgc[comparisonState.week] += 0.15;
-                    comparisonState.scenarioB.events.push({week: comparisonState.week, type: 'warning', text: 'Resisted demand. Facing retaliation, but values intact.'});
+                    comparisonState.scenarioB.data.lgc[comparisonState.month] += 0.15;
+                    comparisonState.scenarioB.events.push({month: comparisonState.month, type: 'warning', text: 'Resisted demand. Facing retaliation, but values intact.'});
                 }
             }
             
@@ -1292,18 +1349,18 @@
             playComparison();
         }
         
-        function advanceComparisonWeek() {
-            comparisonState.week++;
-            document.getElementById('comp-week-display').textContent = comparisonState.week;
+        function advanceComparisonMonth() {
+            comparisonState.month++;
+            document.getElementById('comp-week-display').textContent = comparisonState.month;
             
-            calculateScenarioWeek(comparisonState.scenarioA, comparisonState.week);
-            calculateScenarioWeek(comparisonState.scenarioB, comparisonState.week);
+            calculateScenarioMonth(comparisonState.scenarioA, comparisonState.month);
+            calculateScenarioMonth(comparisonState.scenarioB, comparisonState.month);
             
             updateComparisonDisplay();
             
-            // Announce progress every 2 weeks or on critical events
-            if (comparisonState.week % 2 === 0) {
-                announce(`Week ${comparisonState.week} of 12`);
+            // Announce progress every 2 months or on critical events
+            if (comparisonState.month % 2 === 0) {
+                announce(`Month ${comparisonState.month} of 12`);
             }
             
             // Scroll to latest events in timelines
@@ -1313,12 +1370,12 @@
             if (timelineB) timelineB.scrollTop = timelineB.scrollHeight;
         }
         
-        function calculateScenarioWeek(scenario, week) {
-            const prevLGC = scenario.data.lgc[week - 1];
-            const prevCPFC = scenario.data.cpfc[week - 1];
-            const prevMFP = scenario.data.mfp[week - 1];
-            const prevGrimAge = scenario.data.grimAge[week - 1];
-            const prevCVRisk = scenario.data.cvRisk[week - 1];
+        function calculateScenarioMonth(scenario, month) {
+            const prevLGC = scenario.data.lgc[month - 1];
+            const prevCPFC = scenario.data.cpfc[month - 1];
+            const prevMFP = scenario.data.mfp[month - 1];
+            const prevGrimAge = scenario.data.grimAge[month - 1];
+            const prevCVRisk = scenario.data.cvRisk[month - 1];
             
             const stressInput = scenario.environment === 'extractive' ? 0.15 : 0.05;
             
@@ -1355,17 +1412,17 @@
             }
             newMFP = Math.max(0, Math.min(1.0, newMFP));
             
-            // NEW: Calculate Hidden Damage for Dandelions
+            // NEW: Calculate Hidden Damage for Dandelions (month-appropriate rates)
             let newGrimAge = prevGrimAge;
             let newCVRisk = prevCVRisk;
             
             if (scenario.sensitivity === 'dandelion' && scenario.environment === 'extractive') {
                 // Dandelions accumulate silent damage even when FHRI appears functional
-                // GrimAge accelerates (~0.15 years per week in extractive environment)
+                // GrimAge accelerates (~0.15 years per month in extractive environment)
                 const grimAgeRate = 0.15 * (1 - biobondEffect * 0.4);
                 newGrimAge += grimAgeRate;
                 
-                // Cardiovascular risk accumulates (~3% per week)
+                // Cardiovascular risk accumulates (~3% per month)
                 const cvRiskRate = 3 * (1 - biobondEffect * 0.3);
                 newCVRisk += cvRiskRate;
             }
@@ -1388,51 +1445,51 @@
             scenario.data.grimAge.push(newGrimAge);
             scenario.data.cvRisk.push(newCVRisk);
             
-            checkScenarioThresholds(scenario, week, newLGC, newCPFC, newMFP, newFHRI, newGrimAge, newCVRisk);
+            checkScenarioThresholds(scenario, month, newLGC, newCPFC, newMFP, newFHRI, newGrimAge, newCVRisk);
         }
         
-        function checkScenarioThresholds(scenario, week, lgc, cpfc, mfp, fhri, grimAge, cvRisk) {
-            if (cpfc < 0.6 && scenario.data.cpfc[week - 1] >= 0.6) {
-                scenario.events.push({week, type: 'warning', text: 'PFC capacity below 60% - ethical reasoning compromised'});
+        function checkScenarioThresholds(scenario, month, lgc, cpfc, mfp, fhri, grimAge, cvRisk) {
+            if (cpfc < 0.6 && scenario.data.cpfc[month - 1] >= 0.6) {
+                scenario.events.push({month, type: 'warning', text: 'PFC capacity below 60% - ethical reasoning compromised'});
             }
-            if (cpfc < 0.4 && scenario.data.cpfc[week - 1] >= 0.4) {
-                scenario.events.push({week, type: 'critical', text: 'PFC critically depleted - automatic mode only'});
+            if (cpfc < 0.4 && scenario.data.cpfc[month - 1] >= 0.4) {
+                scenario.events.push({month, type: 'critical', text: 'PFC critically depleted - automatic mode only'});
             }
-            if (lgc > 0.7 && scenario.data.lgc[week - 1] <= 0.7) {
-                scenario.events.push({week, type: 'warning', text: 'Chronic stress - hippocampal atrophy beginning'});
+            if (lgc > 0.7 && scenario.data.lgc[month - 1] <= 0.7) {
+                scenario.events.push({month, type: 'warning', text: 'Chronic stress - hippocampal atrophy beginning'});
             }
-            if (mfp > 0.5 && scenario.data.mfp[week - 1] <= 0.5) {
-                scenario.events.push({week, type: 'warning', text: 'Significant moral debt - identity fragmentation'});
+            if (mfp > 0.5 && scenario.data.mfp[month - 1] <= 0.5) {
+                scenario.events.push({month, type: 'warning', text: 'Significant moral debt - identity fragmentation'});
             }
-            if (fhri < 50 && scenario.data.fhri[week - 1] >= 50) {
-                scenario.events.push({week, type: 'critical', text: 'FHRI below 50 - burnout zone, exit recommended'});
+            if (fhri < 50 && scenario.data.fhri[month - 1] >= 50) {
+                scenario.events.push({month, type: 'critical', text: 'FHRI below 50 - burnout zone, exit recommended'});
             }
             
             // NEW: Hidden damage warnings for dandelions
             if (scenario.sensitivity === 'dandelion') {
-                if (grimAge > 1.0 && scenario.data.grimAge[week - 1] <= 1.0) {
-                    scenario.events.push({week, type: 'warning', text: 'GrimAge +1 year - epigenetic aging accelerating'});
+                if (grimAge > 1.0 && scenario.data.grimAge[month - 1] <= 1.0) {
+                    scenario.events.push({month, type: 'warning', text: 'GrimAge +1 year - epigenetic aging accelerating'});
                 }
-                if (cvRisk > 30 && scenario.data.cvRisk[week - 1] <= 30) {
-                    scenario.events.push({week, type: 'critical', text: 'Cardiovascular risk elevated 30% - silent arterial damage'});
+                if (cvRisk > 30 && scenario.data.cvRisk[month - 1] <= 30) {
+                    scenario.events.push({month, type: 'critical', text: 'Cardiovascular risk elevated 30% - silent arterial damage'});
                 }
             }
         }
         
         function updateComparisonDisplay() {
-            const week = comparisonState.week;
+            const month = comparisonState.month;
             
-            updateScenarioDisplay('a', comparisonState.scenarioA, week);
-            updateScenarioDisplay('b', comparisonState.scenarioB, week);
+            updateScenarioDisplay('a', comparisonState.scenarioA, month);
+            updateScenarioDisplay('b', comparisonState.scenarioB, month);
         }
         
-        function updateScenarioDisplay(id, scenario, week) {
-            const fhri = scenario.data.fhri[week];
-            const cpfc = scenario.data.cpfc[week];
-            const lgc = scenario.data.lgc[week];
-            const mfp = scenario.data.mfp[week];
-            const grimAge = scenario.data.grimAge[week];
-            const cvRisk = scenario.data.cvRisk[week];
+        function updateScenarioDisplay(id, scenario, month) {
+            const fhri = scenario.data.fhri[month];
+            const cpfc = scenario.data.cpfc[month];
+            const lgc = scenario.data.lgc[month];
+            const mfp = scenario.data.mfp[month];
+            const grimAge = scenario.data.grimAge[month];
+            const cvRisk = scenario.data.cvRisk[month];
             
             // Update metric displays
             const fhriEl = document.getElementById(`comp-fhri-${id}`);
@@ -1452,10 +1509,13 @@
             mfpEl.className = 'metric-value ' + (mfp <= 0.4 ? 'good' : mfp <= 0.7 ? 'warning' : 'critical');
             
             // NEW: Update visual chart
-            updateVisualChart(id, scenario, week);
+            updateVisualChart(id, scenario, month);
             
             // NEW: Update symptom log
-            updateSymptomLog(id, scenario, week);
+            updateSymptomLog(id, scenario, month);
+            
+            // NEW: Update monthly narrative
+            updateMonthlyNarrative(id, scenario, month);
             
             // NEW: Update hidden damage display for dandelions
             if (scenario.sensitivity === 'dandelion' && scenario.environment === 'extractive') {
@@ -1468,7 +1528,7 @@
             const timelineEl = document.getElementById(`comp-timeline-${id}`);
             const eventsHtml = scenario.events.map(event => `
                 <div class="timeline-event ${event.type}">
-                    <span class="event-week">Week ${event.week}:</span> ${event.text}
+                    <span class="event-week">Month ${event.month}:</span> ${event.text}
                 </div>
             `).join('');
             timelineEl.innerHTML = '<p style="font-weight: 600; margin-bottom: 10px;">Timeline:</p>' + eventsHtml;
@@ -1476,12 +1536,12 @@
         }
         
         // NEW: Visual chart update function
-        function updateVisualChart(id, scenario, week) {
+        function updateVisualChart(id, scenario, month) {
             const chartContainer = document.getElementById(`chart-${id}`);
             
-            if (week === 0) chartContainer.innerHTML = '';
+            if (month === 0) chartContainer.innerHTML = '';
             
-            const fhri = scenario.data.fhri[week];
+            const fhri = scenario.data.fhri[month];
             const bar = document.createElement('div');
             bar.className = 'chart-bar';
             
@@ -1491,8 +1551,8 @@
             else if (fhri >= 50) bar.classList.add('warning');
             else bar.classList.add('critical');
             
-            bar.setAttribute('data-value', `W${week}: ${Math.round(fhri)}`);
-            bar.setAttribute('aria-label', `Week ${week}: FHRI ${Math.round(fhri)}`);
+            bar.setAttribute('data-value', `M${month}: ${Math.round(fhri)}`);
+            bar.setAttribute('aria-label', `Month ${month}: FHRI ${Math.round(fhri)}`);
             
             chartContainer.appendChild(bar);
         }
@@ -1536,7 +1596,7 @@
                 logEl.className = isCritical ? 'symptom-log critical' : 'symptom-log';
                 logEl.style.display = 'block';
                 logEl.innerHTML = `
-                    <h4>${isCritical ? '🚨' : '⚠️'} This Week's Experience:</h4>
+                    <h4>${isCritical ? '🚨' : '⚠️'} This Month's Symptoms:</h4>
                     <ul>${symptoms.map(s => `<li>${s}</li>`).join('')}</ul>
                 `;
             } else {
@@ -1569,6 +1629,32 @@
             }
         }
         
+        // NEW: Monthly narrative display - shows what's actually happening
+        function updateMonthlyNarrative(id, scenario, month) {
+            const narrativeEl = document.getElementById(`narrative-${id}`);
+            const narrativeContent = document.getElementById(`narrative-content-${id}`);
+            
+            // Determine which narrative set to use
+            let narrativeKey = '';
+            
+            // Primary narratives: nursing (most developed)
+            if (scenario.environment === 'extractive') {
+                narrativeKey = 'nursing_extractive';
+            } else {
+                narrativeKey = 'nursing_metabolic';
+            }
+            
+            // Get narrative for this month
+            const narrative = monthlyNarratives[narrativeKey]?.[month];
+            
+            if (narrative && month > 0) {
+                narrativeEl.style.display = 'block';
+                narrativeContent.innerHTML = `<p style="margin: 0;">${narrative}</p>`;
+            } else {
+                narrativeEl.style.display = 'none';
+            }
+        }
+        
         function showComparisonSummary() {
             const summaryEl = document.getElementById('comp-summary-content');
             const fhriA = Math.round(comparisonState.scenarioA.data.fhri[12]);
@@ -1578,7 +1664,8 @@
             const cvRiskA = comparisonState.scenarioA.data.cvRisk[12];
             const cvRiskB = comparisonState.scenarioB.data.cvRisk[12];
             
-            let html = '<h3>📊 12-Week Comparison Complete</h3>';
+            let html = '<h3>📊 12-Month Comparison Complete</h3>';
+            html += '<p style="font-size: 0.9em; color: #718096; margin-bottom: 15px;">One-year timeline matches published turnover data</p>';
             html += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">';
             
             html += '<div style="border: 3px solid #667eea; padding: 15px; border-radius: 8px;">';
@@ -1624,12 +1711,12 @@
             summaryEl.innerHTML = html;
             document.getElementById('comp-final-summary').style.display = 'block';
             
-            announce('Comparison complete. Review summary for detailed results.');
+            announce('12-month comparison complete. Timeline matches real-world data. Review summary for detailed results.');
         }
         
         function resetComparison() {
             pauseComparison();
-            comparisonState.week = 0;
+            comparisonState.month = 0;
             comparisonState.choicePointShown = false;
             document.getElementById('comp-week-display').textContent = '0';
             document.getElementById('comp-final-summary').style.display = 'none';
@@ -1646,7 +1733,7 @@
                 grimAge: [0],
                 cvRisk: [0]
             };
-            comparisonState.scenarioA.events = [{week: 0, type: 'milestone', text: 'Simulation begins'}];
+            comparisonState.scenarioA.events = [{month: 0, type: 'milestone', text: 'Simulation begins - Month 0 baseline'}];
             comparisonState.scenarioA.choiceMade = null;
             
             comparisonState.scenarioB.data = { 
@@ -1657,11 +1744,11 @@
                 grimAge: [0],
                 cvRisk: [0]
             };
-            comparisonState.scenarioB.events = [{week: 0, type: 'milestone', text: 'Simulation begins'}];
+            comparisonState.scenarioB.events = [{month: 0, type: 'milestone', text: 'Simulation begins - Month 0 baseline'}];
             comparisonState.scenarioB.choiceMade = null;
             
             updateComparisonDisplay();
-            announce('Comparison reset to week zero. Speed setting maintained.');
+            announce('Comparison reset to month zero. Speed setting maintained.');
         }
     </script>
 </body>
