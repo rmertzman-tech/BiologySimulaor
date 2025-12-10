@@ -1377,7 +1377,9 @@
             const prevGrimAge = scenario.data.grimAge[month - 1];
             const prevCVRisk = scenario.data.cvRisk[month - 1];
             
-            const stressInput = scenario.environment === 'extractive' ? 0.15 : 0.05;
+            // CRITICAL FIX: Metabolic vs Extractive have fundamentally different dynamics
+            const isMetabolic = scenario.environment === 'metabolic';
+            const stressInput = isMetabolic ? 0.03 : 0.15; // Metabolic: eustress only
             
             const sensModifier = {
                 'orchid': 1.5,
@@ -1388,17 +1390,48 @@
             const biobondEffect = scenario.biobond / 100;
             
             // Calculate new L_GC
-            const stressAccumulation = stressInput * sensModifier * (1 - biobondEffect * 0.6);
-            const recovery = 0.02 * biobondEffect;
-            let newLGC = prevLGC + stressAccumulation - recovery;
+            let newLGC;
+            if (isMetabolic) {
+                // METABOLIC: Eustress with strong recovery - net downward trajectory
+                const eustress = stressInput * sensModifier * (1 - biobondEffect * 0.8);
+                const recovery = 0.04 * biobondEffect + 0.02; // Stronger base recovery
+                newLGC = prevLGC + eustress - recovery;
+                
+                // In metabolic, L_GC should trend toward healthy baseline (0.30-0.35)
+                if (newLGC < 0.30) newLGC = 0.30; // Floor at healthy stress
+            } else {
+                // EXTRACTIVE: Distress accumulates, recovery insufficient
+                const distress = stressInput * sensModifier * (1 - biobondEffect * 0.6);
+                const recovery = 0.02 * biobondEffect;
+                newLGC = prevLGC + distress - recovery;
+            }
             newLGC = Math.max(0.1, Math.min(1.0, newLGC));
             
             // Calculate new C_PFC
-            let newCPFC = 0.95 - (newLGC * 0.8);
-            if (scenario.stress === 'warrior' && scenario.environment === 'extractive') {
-                newCPFC += 0.05;
-            } else if (scenario.stress === 'worrier' && scenario.environment === 'extractive') {
-                newCPFC -= 0.08;
+            let newCPFC;
+            if (isMetabolic) {
+                // METABOLIC: Challenge-mastery cycles STRENGTHEN PFC over time
+                const challenge = newLGC * 0.3; // Manageable challenge
+                const mastery = 0.02 * biobondEffect + 0.01; // Capacity building
+                newCPFC = prevCPFC - challenge + mastery;
+                
+                // PFC should trend upward in metabolic (learning, growth)
+                if (newCPFC > 0.95) newCPFC = 0.95; // Ceiling at peak capacity
+                
+                // Stress style modifiers (smaller in metabolic)
+                if (scenario.stress === 'warrior') {
+                    newCPFC += 0.02; // Warriors thrive in structured challenge
+                } else if (scenario.stress === 'worrier') {
+                    newCPFC -= 0.01; // Worriers slightly more cautious
+                }
+            } else {
+                // EXTRACTIVE: Chronic stress DEPLETES PFC
+                newCPFC = 0.95 - (newLGC * 0.8);
+                if (scenario.stress === 'warrior') {
+                    newCPFC += 0.05;
+                } else if (scenario.stress === 'worrier') {
+                    newCPFC -= 0.08;
+                }
             }
             newCPFC = Math.max(0.1, Math.min(0.95, newCPFC));
             
@@ -1408,32 +1441,46 @@
                 const moralDebtAccrual = 0.04 * (1 - biobondEffect * 0.5);
                 newMFP += moralDebtAccrual;
             } else {
-                newMFP = Math.max(0, newMFP - 0.02);
+                // METABOLIC: Moral satisfaction - values aligned work
+                newMFP = Math.max(0, newMFP - 0.03); // Active reduction
             }
             newMFP = Math.max(0, Math.min(1.0, newMFP));
             
-            // NEW: Calculate Hidden Damage for Dandelions (month-appropriate rates)
+            // Calculate Hidden Damage (dandelions in extractive only)
             let newGrimAge = prevGrimAge;
             let newCVRisk = prevCVRisk;
             
             if (scenario.sensitivity === 'dandelion' && scenario.environment === 'extractive') {
-                // Dandelions accumulate silent damage even when FHRI appears functional
-                // GrimAge accelerates (~0.15 years per month in extractive environment)
+                // Dandelions accumulate silent damage in extractive
                 const grimAgeRate = 0.15 * (1 - biobondEffect * 0.4);
                 newGrimAge += grimAgeRate;
                 
-                // Cardiovascular risk accumulates (~3% per month)
                 const cvRiskRate = 3 * (1 - biobondEffect * 0.3);
                 newCVRisk += cvRiskRate;
+            } else if (isMetabolic && month >= 6) {
+                // METABOLIC: Meaningful work IMPROVES biological age slightly
+                newGrimAge = Math.max(0, newGrimAge - 0.02);
+                newCVRisk = Math.max(0, newCVRisk - 0.5);
             }
             
             // Calculate FHRI
-            const fhriBase = 100 * (0.4 * newCPFC + 0.3 * (1 - newLGC) + 0.3 * (1 - newMFP));
-            let newFHRI = fhriBase;
-            if (scenario.environment === 'metabolic') {
-                newFHRI += 10;
+            let newFHRI;
+            if (isMetabolic) {
+                // METABOLIC: Components weighted toward thriving
+                const fhriBase = 100 * (
+                    0.4 * newCPFC +           // Cognitive capacity
+                    0.3 * (1 - newLGC) +      // Stress management
+                    0.3 * (1 - newMFP)        // Value alignment
+                );
+                newFHRI = fhriBase + 15; // Metabolic bonus: meaningful work, autonomy
             } else {
-                newFHRI -= 5;
+                // EXTRACTIVE: Components weighted toward crisis
+                const fhriBase = 100 * (
+                    0.4 * newCPFC + 
+                    0.3 * (1 - newLGC) + 
+                    0.3 * (1 - newMFP)
+                );
+                newFHRI = fhriBase - 5; // Extractive penalty
             }
             newFHRI = Math.max(10, Math.min(100, newFHRI));
             
@@ -1449,29 +1496,51 @@
         }
         
         function checkScenarioThresholds(scenario, month, lgc, cpfc, mfp, fhri, grimAge, cvRisk) {
-            if (cpfc < 0.6 && scenario.data.cpfc[month - 1] >= 0.6) {
-                scenario.events.push({month, type: 'warning', text: 'PFC capacity below 60% - ethical reasoning compromised'});
-            }
-            if (cpfc < 0.4 && scenario.data.cpfc[month - 1] >= 0.4) {
-                scenario.events.push({month, type: 'critical', text: 'PFC critically depleted - automatic mode only'});
-            }
-            if (lgc > 0.7 && scenario.data.lgc[month - 1] <= 0.7) {
-                scenario.events.push({month, type: 'warning', text: 'Chronic stress - hippocampal atrophy beginning'});
-            }
-            if (mfp > 0.5 && scenario.data.mfp[month - 1] <= 0.5) {
-                scenario.events.push({month, type: 'warning', text: 'Significant moral debt - identity fragmentation'});
-            }
-            if (fhri < 50 && scenario.data.fhri[month - 1] >= 50) {
-                scenario.events.push({month, type: 'critical', text: 'FHRI below 50 - burnout zone, exit recommended'});
-            }
+            const isMetabolic = scenario.environment === 'metabolic';
             
-            // NEW: Hidden damage warnings for dandelions
-            if (scenario.sensitivity === 'dandelion') {
-                if (grimAge > 1.0 && scenario.data.grimAge[month - 1] <= 1.0) {
-                    scenario.events.push({month, type: 'warning', text: 'GrimAge +1 year - epigenetic aging accelerating'});
+            // In metabolic environments, moderate metrics are healthy challenge, not crisis
+            if (!isMetabolic) {
+                // EXTRACTIVE: These are real warnings
+                if (cpfc < 0.6 && scenario.data.cpfc[month - 1] >= 0.6) {
+                    scenario.events.push({month, type: 'warning', text: 'PFC capacity below 60% - ethical reasoning compromised'});
                 }
-                if (cvRisk > 30 && scenario.data.cvRisk[month - 1] <= 30) {
-                    scenario.events.push({month, type: 'critical', text: 'Cardiovascular risk elevated 30% - silent arterial damage'});
+                if (cpfc < 0.4 && scenario.data.cpfc[month - 1] >= 0.4) {
+                    scenario.events.push({month, type: 'critical', text: 'PFC critically depleted - automatic mode only'});
+                }
+                if (lgc > 0.7 && scenario.data.lgc[month - 1] <= 0.7) {
+                    scenario.events.push({month, type: 'warning', text: 'Chronic stress - hippocampal atrophy beginning'});
+                }
+                if (mfp > 0.5 && scenario.data.mfp[month - 1] <= 0.5) {
+                    scenario.events.push({month, type: 'warning', text: 'Significant moral debt - identity fragmentation'});
+                }
+                if (fhri < 50 && scenario.data.fhri[month - 1] >= 50) {
+                    scenario.events.push({month, type: 'critical', text: 'FHRI below 50 - burnout zone, exit recommended'});
+                }
+                
+                // Hidden damage warnings for dandelions in extractive
+                if (scenario.sensitivity === 'dandelion') {
+                    if (grimAge > 1.0 && scenario.data.grimAge[month - 1] <= 1.0) {
+                        scenario.events.push({month, type: 'warning', text: 'GrimAge +1 year - epigenetic aging accelerating'});
+                    }
+                    if (cvRisk > 30 && scenario.data.cvRisk[month - 1] <= 30) {
+                        scenario.events.push({month, type: 'critical', text: 'Cardiovascular risk elevated 30% - silent arterial damage'});
+                    }
+                }
+            } else {
+                // METABOLIC: Only trigger on actual problems (which should be rare)
+                if (fhri < 70 && scenario.data.fhri[month - 1] >= 70 && month > 6) {
+                    scenario.events.push({month, type: 'milestone', text: 'FHRI dipped below 70 - check if additional support needed'});
+                }
+                
+                // Positive milestones in metabolic
+                if (month === 3 && fhri >= 80) {
+                    scenario.events.push({month, type: 'milestone', text: 'Competence building - thriving in supportive environment'});
+                }
+                if (month === 6 && fhri >= 85) {
+                    scenario.events.push({month, type: 'milestone', text: 'Fully integrated - contributing meaningfully, values aligned'});
+                }
+                if (month === 12 && fhri >= 85) {
+                    scenario.events.push({month, type: 'milestone', text: 'Year complete - sustained thriving, planning to stay long-term'});
                 }
             }
         }
@@ -1558,41 +1627,51 @@
         }
         
         // NEW: Symptom log function
-        function updateSymptomLog(id, scenario, week) {
+        function updateSymptomLog(id, scenario, month) {
             const logEl = document.getElementById(`symptom-log-${id}`);
-            const cpfc = scenario.data.cpfc[week];
-            const lgc = scenario.data.lgc[week];
-            const mfp = scenario.data.mfp[week];
+            const cpfc = scenario.data.cpfc[month];
+            const lgc = scenario.data.lgc[month];
+            const mfp = scenario.data.mfp[month];
+            const isMetabolic = scenario.environment === 'metabolic';
             
             const symptoms = [];
             
-            if (cpfc < 0.4) {
+            // In metabolic environments, use stricter thresholds (only show if truly struggling)
+            // In extractive environments, show symptoms at normal thresholds
+            const cpfcCritical = isMetabolic ? 0.3 : 0.4;
+            const cpfcWarning = isMetabolic ? 0.5 : 0.6;
+            const lgcCritical = isMetabolic ? 0.85 : 0.8;
+            const lgcWarning = isMetabolic ? 0.75 : 0.7;
+            const mfpCritical = isMetabolic ? 0.8 : 0.7;
+            const mfpWarning = isMetabolic ? 0.6 : 0.5;
+            
+            if (cpfc < cpfcCritical) {
                 symptoms.push("You snap at colleagues over minor issues");
                 symptoms.push("Cannot focus on complex tasks");
                 symptoms.push("Ethical reasoning feels impossible");
-            } else if (cpfc < 0.6) {
+            } else if (cpfc < cpfcWarning) {
                 symptoms.push("Difficulty thinking through decisions");
                 symptoms.push("Procrastinating on important work");
             }
             
-            if (lgc > 0.8) {
+            if (lgc > lgcCritical) {
                 symptoms.push("Can't remember what you read");
                 symptoms.push("Physical tension (jaw clenched, shoulders tight)");
-            } else if (lgc > 0.7) {
+            } else if (lgc > lgcWarning) {
                 symptoms.push("Sleep disrupted despite exhaustion");
                 symptoms.push("Minor stressors feel overwhelming");
             }
             
-            if (mfp > 0.7) {
+            if (mfp > mfpCritical) {
                 symptoms.push("Feel like a fraud or hypocrite");
                 symptoms.push("Cynicism about values you once held");
-            } else if (mfp > 0.5) {
+            } else if (mfp > mfpWarning) {
                 symptoms.push("Guilt about cutting corners");
                 symptoms.push("Avoiding thinking about work values");
             }
             
             if (symptoms.length > 0) {
-                const isCritical = cpfc < 0.4 || lgc > 0.8 || mfp > 0.7;
+                const isCritical = cpfc < cpfcCritical || lgc > lgcCritical || mfp > mfpCritical;
                 logEl.className = isCritical ? 'symptom-log critical' : 'symptom-log';
                 logEl.style.display = 'block';
                 logEl.innerHTML = `
