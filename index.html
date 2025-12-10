@@ -123,7 +123,7 @@
             color: #2d3748;
         }
         
-        /* NEW: Symptom Log Styles */
+        /* Symptom Log Styles */
         .symptom-log {
             background: #fffaf0;
             border: 2px solid #ed8936;
@@ -175,7 +175,7 @@
             content: "🚨";
         }
         
-        /* NEW: Hidden Damage Indicator */
+        /* Hidden Damage Indicator */
         .hidden-damage-alert {
             background: linear-gradient(135deg, #fc8181 0%, #c53030 100%);
             color: white;
@@ -362,7 +362,7 @@
             flex-wrap: wrap;
         }
         
-        /* NEW: Choice Point Modal */
+        /* Choice Point Modal */
         .choice-modal {
             position: fixed;
             top: 0;
@@ -511,7 +511,7 @@
             color: #f56565;
         }
         
-        /* NEW: Visual Chart Bars */
+        /* Visual Chart Bars */
         .chart-container {
             height: 150px;
             display: flex;
@@ -735,12 +735,50 @@
     
     <div class="app-container">
         <header class="header" role="banner">
-            <h1>🧪 Biology Simulator - Enhanced</h1>
-            <p>See Your Brain Under Stress - Now with Hidden Damage Tracking</p>
+            <h1>🧬 Biology Simulator: Your Body, Your Choices, Your Future</h1>
+            <p style="font-size: 1.05em; line-height: 1.6; max-width: 900px; margin: 10px auto;">Understanding how workplace design affects your biology - and what you can do about it</p>
         </header>
         
         <main class="content" id="main-content" role="main">
-            <!-- Welcome section would go here - keeping brief for length -->
+            <!-- WELCOME & ORIENTATION -->
+            <div class="info-box" style="margin-bottom: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+                <h2 style="color: white; margin-bottom: 15px; text-align: center;">👋 Welcome to Your Biology</h2>
+                
+                <p style="margin-bottom: 15px; font-size: 1.05em;">
+                    <strong>What you'll discover:</strong> This simulator reveals how institutional design—whether your workplace is extractive or metabolic—cascades through every level of your biology, from neurotransmitters (seconds) to chronic disease (years). You'll see your own patterns, understand why you responded the way you did, and learn to recognize systems that harm versus systems that enable thriving.
+                </p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 20px 0;">
+                    <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 6px;">
+                        <strong style="display: block; margin-bottom: 8px;">🔬 Your Biology Explained</strong>
+                        <span style="font-size: 0.95em;">Watch how stress affects your prefrontal cortex, cortisol patterns, and functional capacity in real-time across 12 months</span>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 6px;">
+                        <strong style="display: block; margin-bottom: 8px;">⚖️ Compare Systems</strong>
+                        <span style="font-size: 0.95em;">Run the same person in extractive vs metabolic environments side-by-side—see how system design determines outcomes</span>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 6px;">
+                        <strong style="display: block; margin-bottom: 8px;">🧠 Multi-Level View</strong>
+                        <span style="font-size: 0.95em;">Explore Sapolsky's 7 biological timescales—from neural (seconds) to systemic (years)—all affected simultaneously</span>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 6px;">
+                        <strong style="display: block; margin-bottom: 8px;">📖 Your Story</strong>
+                        <span style="font-size: 0.95em;">Read month-by-month narratives showing concrete workplace events that ground abstract metrics in lived reality</span>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 6px;">
+                        <strong style="display: block; margin-bottom: 8px;">💪 Discover Your Phenotype</strong>
+                        <span style="font-size: 0.95em;">Learn whether you're orchid (sensitive), tulip (balanced), or dandelion (resilient)—and why it matters</span>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 6px;">
+                        <strong style="display: block; margin-bottom: 8px;">🛡️ Agency Through Understanding</strong>
+                        <span style="font-size: 0.95em;">Recognize extractive patterns, understand BioBonds as solutions, make informed decisions about where you work</span>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.3); text-align: center; font-size: 1.05em;">
+                    <strong>This isn't about "resilience" or "coping"</strong>—it's about understanding the biology of institutional harm and demanding biocompatible design. Let's begin.
+                </p>
+            </div>
             
             <!-- COMPARISON SETUP SECTION -->
             <section id="comparison-setup" class="section active" aria-labelledby="comparison-heading">
@@ -748,15 +786,36 @@
                 
                 <p style="text-align: center; margin-bottom: 20px; color: #718096;">Configure two scenarios and watch them run simultaneously</p>
                 
-                <div class="info-box">
-                    <h3>🔬 New Feature: Silent Damage Tracking</h3>
-                    <p><strong>Dandelions (low sensitivity) now tracked for hidden costs:</strong></p>
-                    <ul style="margin-left: 25px; margin-top: 10px;">
-                        <li><strong>GrimAge Biological Aging:</strong> Epigenetic clock acceleration</li>
-                        <li><strong>Cardiovascular Risk:</strong> Silent arterial damage accumulation</li>
-                        <li><strong>The Dangerous Reality:</strong> FHRI 55 (appearing "functional") + 1.8 years biological aging = WORSE total harm than orchid's visible collapse at FHRI 35</li>
+                <div class="info-box" style="background: #f0fdf4; border-left: 4px solid #10b981; margin-bottom: 20px;">
+                    <h3 style="color: #047857;">💰 What is BioBond? (Impact-Weighted Accounts)</h3>
+                    <p><strong>BioBond policy forces true cost accounting using IFVI methodology:</strong></p>
+                    <ul style="margin-left: 25px; margin-top: 10px; line-height: 1.8;">
+                        <li><strong>0% BioBond = Fraud Allowed:</strong> Companies can hide worker harm costs (biological aging, cognitive decline) off their balance sheets, appearing "profitable" while externalizing damage to government programs and families</li>
+                        <li><strong>100% BioBond = Full Truth:</strong> All worker harm costs internalized using Impact-Weighted Accounts (IFVI standard from Harvard Business School). Companies must show TRUE profitability including biological damage</li>
+                        <li><strong>The Mechanism:</strong> When workers' FHRI drops (harm occurring), BioBond interest rates spike—making hidden costs visible as fiscal penalties. Extractive companies forced to either transform or reveal their true unprofitability</li>
                     </ul>
-                    <p style="margin-top: 10px; font-weight: bold;">High turnover (orchids fleeing) is the WARNING SIGN. Low turnover (dandelions enduring) masks catastrophic damage.</p>
+                    <p style="margin-top: 10px; font-weight: 600; color: #047857;">
+                        Goal: Eliminate extractive business models by making accounting fraud impossible. Force all companies to tell the truth about their impact on human biology.
+                    </p>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #065f46; font-style: italic;">
+                        <strong>Suggested comparison:</strong> Run Scenario A with Extractive + 0% BioBond (fraud) vs Scenario B with Extractive + 100% BioBond (truth) to see how the same company's "profitability" changes when forced to internalize worker harm costs.
+                    </p>
+                </div>
+                
+                <div class="info-box" style="background: #fff5f5; border-left: 4px solid #f56565;">
+                    <h3 style="color: #c53030;">⚠️ Understanding the Dandelion Trap</h3>
+                    <p><strong>Why "resilient" workers may face the worst outcomes:</strong></p>
+                    <ul style="margin-left: 25px; margin-top: 10px;">
+                        <li><strong>Dandelions (low sensitivity)</strong> tolerate extractive conditions longer, appearing "functional"</li>
+                        <li><strong>But they accumulate silent damage:</strong> GrimAge biological aging, cardiovascular risk, hidden tissue-level harm</li>
+                        <li><strong>The paradox:</strong> FHRI 55 (appearing okay) + 1.8 years accelerated aging = WORSE total harm than orchid's visible collapse at FHRI 35</li>
+                    </ul>
+                    <p style="margin-top: 10px; font-weight: 600; color: #c53030;">
+                        High turnover (orchids exiting early) = protective warning sign. Low turnover (dandelions enduring) = hidden catastrophic damage accumulating.
+                    </p>
+                    <p style="margin-top: 10px; font-style: italic; color: #744210;">
+                        This simulator tracks both visible breakdown AND silent damage—revealing why "resilience" in toxic systems is dangerous.
+                    </p>
                 </div>
                 
                 <div class="comparison-split">
@@ -794,7 +853,12 @@
                             </fieldset>
                             
                             <div class="control-row">
-                                <label for="comp-biobond-a" style="font-weight: 600; margin-bottom: 10px; display: block;">BioBond: <span id="comp-biobond-display-a" aria-live="polite">50%</span></label>
+                                <label for="comp-biobond-a" style="font-weight: 600; margin-bottom: 10px; display: block;">
+                                    BioBond Policy Mandate: <span id="comp-biobond-display-a" aria-live="polite">50%</span>
+                                </label>
+                                <p style="font-size: 0.85em; color: #64748b; margin-bottom: 10px;">
+                                    Degree of externality internalization (0% = fraud allowed, 100% = full IFVI truth-telling)
+                                </p>
                                 <input 
                                     type="range" 
                                     id="comp-biobond-a" 
@@ -803,14 +867,14 @@
                                     value="50" 
                                     oninput="document.getElementById('comp-biobond-display-a').textContent = this.value + '%'"
                                     style="width: 100%;"
-                                    aria-label="Scenario A BioBond level"
+                                    aria-label="Scenario A BioBond policy level"
                                     aria-valuemin="0"
                                     aria-valuemax="100"
                                     aria-valuenow="50">
                                 <div style="margin-top: 10px;">
-                                    <button type="button" class="button button-secondary" style="padding: 8px 15px; font-size: 0.9em; margin-right: 5px;" onclick="setBiobond('a', 10)">Crisis (10%)</button>
-                                    <button type="button" class="button button-secondary" style="padding: 8px 15px; font-size: 0.9em; margin-right: 5px;" onclick="setBiobond('a', 40)">Average (40%)</button>
-                                    <button type="button" class="button button-secondary" style="padding: 8px 15px; font-size: 0.9em;" onclick="setBiobond('a', 80)">Optimized (80%)</button>
+                                    <button type="button" class="button button-secondary" style="padding: 8px 15px; font-size: 0.9em; margin-right: 5px;" onclick="setBiobond('a', 0)">No Mandate (0%)</button>
+                                    <button type="button" class="button button-secondary" style="padding: 8px 15px; font-size: 0.9em; margin-right: 5px;" onclick="setBiobond('a', 50)">Partial (50%)</button>
+                                    <button type="button" class="button button-secondary" style="padding: 8px 15px; font-size: 0.9em;" onclick="setBiobond('a', 100)">Full Truth (100%)</button>
                                 </div>
                             </div>
                         </form>
@@ -850,7 +914,12 @@
                             </fieldset>
                             
                             <div class="control-row">
-                                <label for="comp-biobond-b" style="font-weight: 600; margin-bottom: 10px; display: block;">BioBond: <span id="comp-biobond-display-b" aria-live="polite">50%</span></label>
+                                <label for="comp-biobond-b" style="font-weight: 600; margin-bottom: 10px; display: block;">
+                                    BioBond Policy Mandate: <span id="comp-biobond-display-b" aria-live="polite">50%</span>
+                                </label>
+                                <p style="font-size: 0.85em; color: #64748b; margin-bottom: 10px;">
+                                    Degree of externality internalization (0% = fraud allowed, 100% = full IFVI truth-telling)
+                                </p>
                                 <input 
                                     type="range" 
                                     id="comp-biobond-b" 
@@ -859,14 +928,14 @@
                                     value="50" 
                                     oninput="document.getElementById('comp-biobond-display-b').textContent = this.value + '%'"
                                     style="width: 100%;"
-                                    aria-label="Scenario B BioBond level"
+                                    aria-label="Scenario B BioBond policy level"
                                     aria-valuemin="0"
                                     aria-valuemax="100"
                                     aria-valuenow="50">
                                 <div style="margin-top: 10px;">
-                                    <button type="button" class="button button-secondary" style="padding: 8px 15px; font-size: 0.9em; margin-right: 5px;" onclick="setBiobond('b', 10)">Crisis (10%)</button>
-                                    <button type="button" class="button button-secondary" style="padding: 8px 15px; font-size: 0.9em; margin-right: 5px;" onclick="setBiobond('b', 40)">Average (40%)</button>
-                                    <button type="button" class="button button-secondary" style="padding: 8px 15px; font-size: 0.9em;" onclick="setBiobond('b', 80)">Optimized (80%)</button>
+                                    <button type="button" class="button button-secondary" style="padding: 8px 15px; font-size: 0.9em; margin-right: 5px;" onclick="setBiobond('b', 0)">No Mandate (0%)</button>
+                                    <button type="button" class="button button-secondary" style="padding: 8px 15px; font-size: 0.9em; margin-right: 5px;" onclick="setBiobond('b', 50)">Partial (50%)</button>
+                                    <button type="button" class="button button-secondary" style="padding: 8px 15px; font-size: 0.9em;" onclick="setBiobond('b', 100)">Full Truth (100%)</button>
                                 </div>
                             </div>
                         </form>
@@ -933,10 +1002,10 @@
                         <h3 class="scenario-header scenario-a" id="results-a-heading">SCENARIO A</h3>
                         <p id="comp-description-a" style="text-align: center; margin-bottom: 20px; font-size: 0.95em; color: #4a5568;"></p>
                         
-                        <!-- NEW: Symptom Log A -->
+                        <!-- Symptom Log A -->
                         <div id="symptom-log-a" style="display: none;"></div>
                         
-                        <!-- NEW: Monthly Narrative Display -->
+                        <!-- Monthly Narrative Display -->
                         <div id="narrative-a" style="display: none; margin-top: 15px; padding: 15px; background: #f0f9ff; border-left: 4px solid #3b82f6; border-radius: 4px;">
                             <h4 style="font-size: 1em; margin: 0 0 10px 0; color: #1e40af;">📖 This Month's Reality</h4>
                             <div id="narrative-content-a" style="font-size: 0.95em; line-height: 1.6; color: #374151;"></div>
@@ -960,15 +1029,26 @@
                                 <span id="comp-mfp-a" class="metric-value good" aria-label="Scenario A moral debt">0%</span>
                             </div>
                             
-                            <!-- NEW: Visual Chart A -->
+                            <!-- Visual Chart A -->
                             <div style="margin-top: 20px;">
                                 <h4 style="font-size: 0.9em; text-align: center; color: #718096; margin-bottom: 10px;">FHRI Trajectory</h4>
                                 <div id="chart-a" class="chart-container" role="img" aria-label="Bar chart showing FHRI levels over 12 weeks"></div>
                             </div>
                         </div>
                         
-                        <!-- NEW: Hidden Damage Alert A -->
+                        <!-- Hidden Damage Alert A -->
                         <div id="hidden-damage-a" style="display: none;"></div>
+                        
+                        <!-- Financial Reality Panel A (IFVI Standard) -->
+                        <div id="financial-reality-a" style="display: none; margin-top: 20px;">
+                            <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 15px; border-radius: 8px; cursor: pointer;" onclick="toggleFinancial('a')" role="button" tabindex="0" aria-expanded="false" aria-controls="financial-content-a">
+                                <h4 style="margin: 0; color: white; font-size: 1.05em; display: flex; align-items: center; justify-content: space-between;">
+                                    <span>💰 Impact-Weighted Accounting (IFVI Standard)</span>
+                                    <span id="financial-arrow-a" style="font-size: 1.2em;">▼</span>
+                                </h4>
+                            </div>
+                            <div id="financial-content-a" style="display: none; padding: 20px; background: #f0fdf4; border: 2px solid #10b981; border-top: none; border-radius: 0 0 8px 8px;"></div>
+                        </div>
                         
                         <div id="comp-timeline-a" style="margin-top: 20px; padding: 15px; background: white; border-radius: 6px; max-height: 200px; overflow-y: auto;" role="log" aria-label="Scenario A timeline of events">
                             <p style="font-weight: 600; margin-bottom: 10px;">Timeline:</p>
@@ -977,7 +1057,7 @@
                             </div>
                         </div>
                         
-                        <!-- NEW: Sapolsky Multi-Level Biological Changes Chart -->
+                        <!-- Sapolsky Multi-Level Biological Changes Chart -->
                         <div style="margin-top: 20px; padding: 15px; background: #fefce8; border-radius: 6px; border: 2px solid #eab308;">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; cursor: pointer;" onclick="toggleSapolsky('a')" role="button" tabindex="0" aria-label="Toggle biological changes detail view">
                                 <h4 style="margin: 0; font-size: 1em; color: #854d0e;">
@@ -995,10 +1075,10 @@
                         <h3 class="scenario-header scenario-b" id="results-b-heading">SCENARIO B</h3>
                         <p id="comp-description-b" style="text-align: center; margin-bottom: 20px; font-size: 0.95em; color: #4a5568;"></p>
                         
-                        <!-- NEW: Symptom Log B -->
+                        <!-- Symptom Log B -->
                         <div id="symptom-log-b" style="display: none;"></div>
                         
-                        <!-- NEW: Monthly Narrative Display -->
+                        <!-- Monthly Narrative Display -->
                         <div id="narrative-b" style="display: none; margin-top: 15px; padding: 15px; background: #f0f9ff; border-left: 4px solid #3b82f6; border-radius: 4px;">
                             <h4 style="font-size: 1em; margin: 0 0 10px 0; color: #1e40af;">📖 This Month's Reality</h4>
                             <div id="narrative-content-b" style="font-size: 0.95em; line-height: 1.6; color: #374151;"></div>
@@ -1022,15 +1102,26 @@
                                 <span id="comp-mfp-b" class="metric-value good" aria-label="Scenario B moral debt">0%</span>
                             </div>
                             
-                            <!-- NEW: Visual Chart B -->
+                            <!-- Visual Chart B -->
                             <div style="margin-top: 20px;">
                                 <h4 style="font-size: 0.9em; text-align: center; color: #718096; margin-bottom: 10px;">FHRI Trajectory</h4>
                                 <div id="chart-b" class="chart-container" role="img" aria-label="Bar chart showing FHRI levels over 12 weeks"></div>
                             </div>
                         </div>
                         
-                        <!-- NEW: Hidden Damage Alert B -->
+                        <!-- Hidden Damage Alert B -->
                         <div id="hidden-damage-b" style="display: none;"></div>
+                        
+                        <!-- Financial Reality Panel B (IFVI Standard) -->
+                        <div id="financial-reality-b" style="display: none; margin-top: 20px;">
+                            <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 15px; border-radius: 8px; cursor: pointer;" onclick="toggleFinancial('b')" role="button" tabindex="0" aria-expanded="false" aria-controls="financial-content-b">
+                                <h4 style="margin: 0; color: white; font-size: 1.05em; display: flex; align-items: center; justify-content: space-between;">
+                                    <span>💰 Impact-Weighted Accounting (IFVI Standard)</span>
+                                    <span id="financial-arrow-b" style="font-size: 1.2em;">▼</span>
+                                </h4>
+                            </div>
+                            <div id="financial-content-b" style="display: none; padding: 20px; background: #f0fdf4; border: 2px solid #10b981; border-top: none; border-radius: 0 0 8px 8px;"></div>
+                        </div>
                         
                         <div id="comp-timeline-b" style="margin-top: 20px; padding: 15px; background: white; border-radius: 6px; max-height: 200px; overflow-y: auto;" role="log" aria-label="Scenario B timeline of events">
                             <p style="font-weight: 600; margin-bottom: 10px;">Timeline:</p>
@@ -1039,7 +1130,7 @@
                             </div>
                         </div>
                         
-                        <!-- NEW: Sapolsky Multi-Level Biological Changes Chart -->
+                        <!-- Sapolsky Multi-Level Biological Changes Chart -->
                         <div style="margin-top: 20px; padding: 15px; background: #fefce8; border-radius: 6px; border: 2px solid #eab308;">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; cursor: pointer;" onclick="toggleSapolsky('b')" role="button" tabindex="0" aria-label="Toggle biological changes detail view">
                                 <h4 style="margin: 0; font-size: 1em; color: #854d0e;">
@@ -1078,7 +1169,7 @@
             setTimeout(() => announcer.textContent = '', 1000);
         }
         
-        // NEW: Monthly Narrative Data - Shows what's actually happening each month
+        // Monthly Narrative Data - Shows what's actually happening each month
         const monthlyNarratives = {
             nursing_extractive: {
                 1: "Orientation: 4 hours instead of 3 weeks. Assigned 12 patients (recommended: 6). Call lights going unanswered, residents crying out. Beginning to see system isn't designed for safe care.",
@@ -1435,19 +1526,38 @@
             let newCPFC;
             if (isMetabolic) {
                 // METABOLIC: Challenge-mastery cycles STRENGTHEN PFC over time
-                const challenge = newLGC * 0.3; // Manageable challenge
-                const mastery = 0.02 * biobondEffect + 0.01; // Capacity building
-                newCPFC = prevCPFC - challenge + mastery;
+                // In healthy environments, mastery EXCEEDS challenge = net capacity building
                 
-                // PFC should trend upward in metabolic (learning, growth)
-                if (newCPFC > 0.95) newCPFC = 0.95; // Ceiling at peak capacity
+                const manageable_challenge = newLGC * 0.15; // Reduced challenge factor
+                const mastery_gain = 0.015 * (1 + biobondEffect); // Scales with BioBond
+                const base_growth = 0.008; // Small continuous improvement
                 
-                // Stress style modifiers (smaller in metabolic)
+                // Stress style modifiers (larger in metabolic - this is where they shine)
+                let style_bonus = 0;
                 if (scenario.stress === 'warrior') {
-                    newCPFC += 0.02; // Warriors thrive in structured challenge
+                    style_bonus = 0.025; // Warriors thrive in structured challenge
                 } else if (scenario.stress === 'worrier') {
-                    newCPFC -= 0.01; // Worriers slightly more cautious
+                    style_bonus = 0.01; // Worriers do fine with support
+                } else {
+                    style_bonus = 0.015; // Balanced gets moderate bonus
                 }
+                
+                // Sensitivity modifiers (inverted in metabolic - sensitivity becomes asset)
+                let sensitivity_adjustment = 0;
+                if (scenario.sensitivity === 'orchid') {
+                    sensitivity_adjustment = 0.015; // Orchid empathy valued, careful attention
+                } else if (scenario.sensitivity === 'dandelion') {
+                    sensitivity_adjustment = 0.01; // Dandelion steadiness utilized
+                } else {
+                    sensitivity_adjustment = 0.012; // Tulip balance beneficial
+                }
+                
+                newCPFC = prevCPFC - manageable_challenge + mastery_gain + base_growth + style_bonus + sensitivity_adjustment;
+                
+                // In metabolic, C_PFC should trend upward but cap at peak capacity
+                if (newCPFC > 0.95) newCPFC = 0.95; // Ceiling at peak human capacity
+                if (newCPFC < 0.70) newCPFC = 0.70; // Floor - even metabolic can't fix severe prior damage instantly
+                
             } else {
                 // EXTRACTIVE: Chronic stress DEPLETES PFC
                 newCPFC = 0.95 - (newLGC * 0.8);
@@ -1601,19 +1711,22 @@
             mfpEl.textContent = Math.round(mfp * 100) + '%';
             mfpEl.className = 'metric-value ' + (mfp <= 0.4 ? 'good' : mfp <= 0.7 ? 'warning' : 'critical');
             
-            // NEW: Update visual chart
+            // Update visual chart
             updateVisualChart(id, scenario, month);
             
-            // NEW: Update symptom log
+            // Update symptom log
             updateSymptomLog(id, scenario, month);
             
-            // NEW: Update monthly narrative
+            // Update monthly narrative
             updateMonthlyNarrative(id, scenario, month);
             
-            // NEW: Update Sapolsky multi-level chart
+            // Update Sapolsky multi-level chart
             updateSapolskyChart(id, scenario, month);
             
-            // NEW: Update hidden damage display for dandelions
+            // Update financial reality (IFVI Standard)
+            updateFinancialReality(id, scenario, month, scenario.biobond, scenario.environment === 'metabolic');
+            
+            // Update hidden damage display for dandelions
             if (scenario.sensitivity === 'dandelion' && scenario.environment === 'extractive') {
                 updateHiddenDamage(id, grimAge, cvRisk, fhri);
             } else {
@@ -1631,7 +1744,7 @@
             timelineEl.scrollTop = timelineEl.scrollHeight;
         }
         
-        // NEW: Visual chart update function
+        // Visual chart update function
         function updateVisualChart(id, scenario, month) {
             const chartContainer = document.getElementById(`chart-${id}`);
             
@@ -1653,7 +1766,7 @@
             chartContainer.appendChild(bar);
         }
         
-        // NEW: Symptom log function
+        // Symptom log function
         function updateSymptomLog(id, scenario, month) {
             const logEl = document.getElementById(`symptom-log-${id}`);
             const cpfc = scenario.data.cpfc[month];
@@ -1710,7 +1823,7 @@
             }
         }
         
-        // NEW: Hidden damage display for dandelions
+        // Hidden damage display for dandelions
         function updateHiddenDamage(id, grimAge, cvRisk, fhri) {
             const damageEl = document.getElementById(`hidden-damage-${id}`);
             
@@ -1735,7 +1848,7 @@
             }
         }
         
-        // NEW: Monthly narrative display - shows what's actually happening
+        // Monthly narrative display - shows what's actually happening
         function updateMonthlyNarrative(id, scenario, month) {
             const narrativeEl = document.getElementById(`narrative-${id}`);
             const narrativeContent = document.getElementById(`narrative-content-${id}`);
@@ -1761,7 +1874,7 @@
             }
         }
         
-        // NEW: Sapolsky Multi-Level Timescale Chart Functions
+        // Sapolsky Multi-Level Timescale Chart Functions
         function toggleSapolsky(id) {
             const content = document.getElementById(`sapolsky-content-${id}`);
             const toggle = document.getElementById(`sapolsky-toggle-${id}`);
@@ -1775,6 +1888,175 @@
                 toggle.textContent = '▼';
                 announce('Biological changes detail collapsed');
             }
+        }
+        
+        // Financial Reality (IFVI Standard) Functions
+        function toggleFinancial(id) {
+            const content = document.getElementById(`financial-content-${id}`);
+            const arrow = document.getElementById(`financial-arrow-${id}`);
+            
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                arrow.textContent = '▲';
+                announce('Financial reality detail expanded');
+            } else {
+                content.style.display = 'none';
+                arrow.textContent = '▼';
+                announce('Financial reality detail collapsed');
+            }
+        }
+        
+        function calculateBioLiability(scenario, month) {
+            // Based on BCCM GlobalValueFactors methodology:
+            // DALY_Value = $100,000 per Disability-Adjusted Life Year
+            // DALYs = ATCF_loss * 0.5 (proxy for stress-related disease burden)
+            
+            const DALY_VALUE = 100000.0;
+            const WORKERS = 100; // Nursing home workforce
+            
+            const cpfc = scenario.data.cpfc[month];
+            const baselineCPFC = 0.85; // Starting healthy state
+            
+            // Calculate aggregate ATCF loss across workforce
+            const atcfLoss = Math.max(0, (baselineCPFC - cpfc) * WORKERS);
+            
+            // Convert to DALYs
+            const dalys = atcfLoss * 0.5;
+            
+            // Monetize (annual, so divide by 12 for monthly)
+            const monthlyLiability = (dalys * DALY_VALUE) / 12;
+            
+            return monthlyLiability;
+        }
+        
+        function calculateBioBondInterest(fhri, biobondLevel) {
+            // Based on BCCM FirmAgent.step() formula:
+            // interest_rate = base_interest_rate + (fhri_sensitivity / fhri_score)
+            // Where fhri_sensitivity scales with BioBond enforcement level
+            
+            const BASE_RATE = 0.02; // 2% base interest
+            const MAX_SENSITIVITY = 10.0; // At 100% BioBond
+            
+            const sensitivity = (biobondLevel / 100) * MAX_SENSITIVITY;
+            const penalty = sensitivity / Math.max(fhri, 1); // Prevent division by zero
+            
+            return BASE_RATE + penalty;
+        }
+        
+        function updateFinancialReality(id, scenario, month, biobondLevel, isMetabolic) {
+            // Don't show at month 0
+            if (month === 0) {
+                document.getElementById(`financial-reality-${id}`).style.display = 'none';
+                return;
+            }
+            
+            document.getElementById(`financial-reality-${id}`).style.display = 'block';
+            
+            const contentEl = document.getElementById(`financial-content-${id}`);
+            const fhri = scenario.data.fhri[month];
+            
+            // Calculate bio-liability (externalized worker harm costs)
+            const totalBioLiability = calculateBioLiability(scenario, month);
+            const visibleLiability = totalBioLiability * (biobondLevel / 100);
+            const hiddenLiability = totalBioLiability * (1 - biobondLevel / 100);
+            
+            // Calculate BioBond interest rates
+            const currentInterest = calculateBioBondInterest(fhri, biobondLevel);
+            const fullTruthInterest = calculateBioBondInterest(fhri, 100);
+            
+            // Mock financial numbers (nursing home)
+            const MONTHLY_REVENUE = 2500000; // $2.5M monthly revenue
+            const BASE_OPERATING_COSTS = 1800000; // $1.8M base costs
+            const WAGES = 400000; // $400K wages for 100 workers
+            const CAPITAL_STOCK = 10000000; // $10M capital base
+            
+            // Calculate profits at different accounting standards
+            const gaapProfit = MONTHLY_REVENUE - BASE_OPERATING_COSTS - WAGES;
+            const currentInterestCost = (currentInterest * CAPITAL_STOCK) / 12;
+            const fullTruthInterestCost = (fullTruthInterest * CAPITAL_STOCK) / 12;
+            
+            const adjustedProfit = gaapProfit - currentInterestCost - visibleLiability;
+            const trueProfit = gaapProfit - fullTruthInterestCost - totalBioLiability;
+            
+            // Determine status colors
+            const adjustedColor = adjustedProfit > 0 ? '#10b981' : '#ef4444';
+            const trueProfitColor = trueProfit > 0 ? '#10b981' : '#ef4444';
+            
+            // Format currency
+            const fmt = (val) => {
+                const abs = Math.abs(val);
+                const sign = val < 0 ? '-' : '';
+                return sign + '$' + abs.toLocaleString('en-US', {maximumFractionDigits: 0});
+            };
+            
+            // Generate HTML
+            let html = `
+                <div style="font-size: 0.95em; line-height: 1.8;">
+                    <p style="margin: 0 0 15px 0; font-size: 0.9em; color: #6b7280; font-style: italic;">
+                        Based on Impact-Weighted Accounts methodology (IFVI/Harvard Business School). 
+                        Converts worker harm into Disability-Adjusted Life Years (DALYs) at $100K/DALY valuation standard.
+                    </p>
+                    
+                    <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 6px; border-left: 4px solid #3b82f6;">
+                        <h5 style="margin: 0 0 10px 0; color: #1e40af; font-size: 1em;">📊 Traditional Financial Accounting (GAAP)</h5>
+                        <div style="font-family: 'Courier New', monospace; font-size: 0.9em;">
+                            <div>Monthly Revenue: ${fmt(MONTHLY_REVENUE)}</div>
+                            <div>Operating Costs: ${fmt(BASE_OPERATING_COSTS)}</div>
+                            <div>Wages: ${fmt(WAGES)}</div>
+                            <div style="border-top: 1px solid #e5e7eb; margin: 5px 0; padding-top: 5px; font-weight: 600;">
+                                Reported Profit: ${fmt(gaapProfit)} 
+                                <span style="color: #10b981;">(${((gaapProfit/MONTHLY_REVENUE)*100).toFixed(1)}% margin)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 6px; border-left: 4px solid #f59e0b;">
+                        <h5 style="margin: 0 0 10px 0; color: #92400e; font-size: 1em;">⚖️ Current BioBond Enforcement (${biobondLevel}%)</h5>
+                        <div style="font-family: 'Courier New', monospace; font-size: 0.9em;">
+                            <div>Bio-Liability Visible: ${fmt(visibleLiability)} <span style="color: #6b7280;">(${biobondLevel}% internalized)</span></div>
+                            <div>Bio-Liability Hidden: <span style="color: #ef4444;">${fmt(hiddenLiability)}</span> <span style="color: #6b7280;">(${100-biobondLevel}% off-books)</span></div>
+                            <div>BioBond Interest (FHRI ${fhri}): ${(currentInterest * 100).toFixed(1)}% = ${fmt(currentInterestCost)}/month</div>
+                            <div style="border-top: 1px solid #e5e7eb; margin: 5px 0; padding-top: 5px; font-weight: 600; color: ${adjustedColor};">
+                                Adjusted Profit: ${fmt(adjustedProfit)}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px; padding: 15px; background: ${trueProfit < 0 ? '#fef2f2' : '#f0fdf4'}; border-radius: 6px; border-left: 4px solid ${trueProfitColor}; border: 2px solid ${trueProfitColor};">
+                        <h5 style="margin: 0 0 10px 0; color: ${trueProfitColor}; font-size: 1em; font-weight: 700;">
+                            ✓ Impact-Weighted Accounts (100% BioBond - Full Truth)
+                        </h5>
+                        <div style="font-family: 'Courier New', monospace; font-size: 0.9em;">
+                            <div style="margin-bottom: 10px; padding: 10px; background: white; border-radius: 4px;">
+                                <div style="font-weight: 600; margin-bottom: 5px; color: #374151;">Bio-Liability Internalized: ${fmt(totalBioLiability)}</div>
+                                <div style="margin-left: 15px; color: #6b7280; font-size: 0.9em;">
+                                    <div>├─ Biological Aging (GrimAge): ${fmt(totalBioLiability * 0.4)}</div>
+                                    <div>├─ Cognitive Decline (C_PFC loss): ${fmt(totalBioLiability * 0.33)}</div>
+                                    <div>└─ Turnover/Replacement Costs: ${fmt(totalBioLiability * 0.27)}</div>
+                                </div>
+                            </div>
+                            <div>BioBond Interest (FHRI ${fhri}): ${(fullTruthInterest * 100).toFixed(1)}% = ${fmt(fullTruthInterestCost)}/month</div>
+                            <div style="border-top: 2px solid ${trueProfitColor}; margin: 10px 0; padding-top: 10px; font-weight: 700; font-size: 1.1em; color: ${trueProfitColor};">
+                                TRUE PROFIT: ${fmt(trueProfit)}
+                                ${trueProfit < 0 ? '<div style="margin-top: 8px; padding: 10px; background: #fee2e2; border-radius: 4px; color: #991b1b; font-size: 0.85em; font-family: system-ui;">⚠️ Company is VALUE-DESTRUCTIVE under honest accounting</div>' : ''}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="padding: 15px; background: #fef3c7; border-radius: 6px; border-left: 4px solid #f59e0b;">
+                        <h5 style="margin: 0 0 10px 0; color: #92400e; font-size: 1em;">💸 Hidden Costs Absorbed By:</h5>
+                        <div style="font-size: 0.9em; color: #78350f;">
+                            <div>├─ Government Programs: ${fmt(hiddenLiability * 0.65)} <span style="color: #6b7280;">(Medicaid, disability, public health)</span></div>
+                            <div>└─ Workers/Families: ${fmt(hiddenLiability * 0.35)} <span style="color: #6b7280;">(Out-of-pocket medical, lost income, caregiving)</span></div>
+                        </div>
+                        <p style="margin: 10px 0 0 0; font-size: 0.85em; color: #92400e; font-style: italic;">
+                            These externalized costs are OFF the company's balance sheet - this is ${biobondLevel < 100 ? 'fraudulent GAAP accounting' : 'prevented by full BioBond enforcement'}.
+                        </p>
+                    </div>
+                </div>
+            `;
+            
+            contentEl.innerHTML = html;
         }
         
         function updateSapolskyChart(id, scenario, month) {
@@ -1872,8 +2154,16 @@
                     </div>
                     <p style="margin: 8px 0 0 0; font-size: 0.85em; color: #6b7280;">
                         ${isMetabolic 
-                            ? `🟢 PFC dendrites ${cpfc > 0.85 ? 'expanding through challenge-mastery cycles, complexity increasing' : 'maintaining healthy structure, supporting ethical reasoning'}` 
-                            : `🔴 PFC dendrites ${cpfc < 0.5 ? 'severely retracted and simplified over ' + month + ' months, hippocampal atrophy beginning' : 'retracting under chronic stress, complexity declining'}`}
+                            ? cpfc >= 0.85 
+                                ? '🟢 PFC dendrites expanding through challenge-mastery cycles, complexity increasing' 
+                                : cpfc >= 0.75 
+                                    ? '🟢 PFC dendrites maintaining healthy structure, supporting ethical reasoning'
+                                    : cpfc >= 0.60
+                                        ? '🟡 PFC showing some strain - may need additional support or adjustment'
+                                        : '🔴 PFC compromised despite metabolic environment - investigate workload or other stressors'
+                            : cpfc < 0.5 
+                                ? `🔴 PFC dendrites severely retracted and simplified over ${month} months, hippocampal atrophy beginning` 
+                                : '🔴 PFC dendrites retracting under chronic stress, complexity declining'}
                     </p>
                     <p style="margin: 5px 0 0 0; font-size: 0.8em; color: #9ca3af;"><em>Sapolsky Ch. 10: Dendritic changes visible after 2-3 weeks of chronic stress</em></p>
                 </div>
@@ -1932,8 +2222,16 @@
                     </div>
                     <p style="margin: 8px 0 0 0; font-size: 0.85em; color: #6b7280;">
                         ${isMetabolic 
-                            ? `🟢 ${fhri >= 85 ? 'Thriving - all systems flourishing, on trajectory for longevity' : 'Healthy functioning - sustainable workload, body recovering properly'}` 
-                            : `🔴 ${fhri < 50 ? 'Pre-disease state - ' + month + ' months exposure, trajectory toward chronic illness (hypertension, diabetes, autoimmune)' : 'Early warning signs - system strain accumulating, disease risk rising'}`}
+                            ? fhri >= 85 
+                                ? '🟢 Thriving - all systems flourishing, on trajectory for longevity' 
+                                : fhri >= 75
+                                    ? '🟢 Healthy functioning - sustainable workload, body recovering properly'
+                                    : fhri >= 65
+                                        ? '🟡 Functioning but not thriving - may need additional support or workload adjustment'
+                                        : '🔴 Struggling despite metabolic environment - system design may need improvement'
+                            : fhri < 50 
+                                ? `🔴 Pre-disease state - ${month} months exposure, trajectory toward chronic illness (hypertension, diabetes, autoimmune)` 
+                                : '🔴 Early warning signs - system strain accumulating, disease risk rising'}
                     </p>
                     <p style="margin: 5px 0 0 0; font-size: 0.8em; color: #9ca3af;"><em>Sapolsky Ch. 12-14: Chronic disease manifests over months-years of sustained stress</em></p>
                 </div>
@@ -2022,7 +2320,7 @@
                 html += `<p>Substantial FHRI difference (${diff} points) demonstrates how institutional design determines outcomes far more than individual effort.</p>`;
             }
             
-            // NEW: Dandelion-specific warning
+            // Dandelion-specific warning
             const isDandelionA = comparisonState.scenarioA.sensitivity === 'dandelion';
             const isDandelionB = comparisonState.scenarioB.sensitivity === 'dandelion';
             
