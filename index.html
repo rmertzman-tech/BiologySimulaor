@@ -1050,6 +1050,17 @@
                             <div id="financial-content-a" style="display: block; padding: 20px; background: #f0fdf4; border: 2px solid #10b981; border-top: none; border-radius: 0 0 8px 8px;"></div>
                         </div>
                         
+                        <!-- Computational Metrics Panel A (Lloyd-Grounded) -->
+                        <div id="computational-metrics-a" style="display: none; margin-top: 20px;">
+                            <div style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); padding: 15px; border-radius: 8px 8px 0 0; cursor: pointer;" onclick="toggleComputational('a')" role="button" tabindex="0" aria-expanded="true" aria-controls="computational-content-a">
+                                <h4 style="margin: 0; color: white; font-size: 1.05em; display: flex; align-items: center; justify-content: space-between;">
+                                    <span>🖥️ Computational Capacity Metrics (Lloyd-Sapolsky Framework) - Click to collapse/expand</span>
+                                    <span id="computational-arrow-a" style="font-size: 1.2em;">▲</span>
+                                </h4>
+                            </div>
+                            <div id="computational-content-a" style="display: block; padding: 20px; background: #faf5ff; border: 2px solid #8b5cf6; border-top: none; border-radius: 0 0 8px 8px;"></div>
+                        </div>
+                        
                         <div id="comp-timeline-a" style="margin-top: 20px; padding: 15px; background: white; border-radius: 6px; max-height: 200px; overflow-y: auto;" role="log" aria-label="Scenario A timeline of events">
                             <p style="font-weight: 600; margin-bottom: 10px;">Timeline:</p>
                             <div class="timeline-event milestone">
@@ -1121,6 +1132,17 @@
                                 </h4>
                             </div>
                             <div id="financial-content-b" style="display: block; padding: 20px; background: #f0fdf4; border: 2px solid #10b981; border-top: none; border-radius: 0 0 8px 8px;"></div>
+                        </div>
+                        
+                        <!-- Computational Metrics Panel B (Lloyd-Grounded) -->
+                        <div id="computational-metrics-b" style="display: none; margin-top: 20px;">
+                            <div style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); padding: 15px; border-radius: 8px 8px 0 0; cursor: pointer;" onclick="toggleComputational('b')" role="button" tabindex="0" aria-expanded="true" aria-controls="computational-content-b">
+                                <h4 style="margin: 0; color: white; font-size: 1.05em; display: flex; align-items: center; justify-content: space-between;">
+                                    <span>🖥️ Computational Capacity Metrics (Lloyd-Sapolsky Framework) - Click to collapse/expand</span>
+                                    <span id="computational-arrow-b" style="font-size: 1.2em;">▲</span>
+                                </h4>
+                            </div>
+                            <div id="computational-content-b" style="display: block; padding: 20px; background: #faf5ff; border: 2px solid #8b5cf6; border-top: none; border-radius: 0 0 8px 8px;"></div>
                         </div>
                         
                         <div id="comp-timeline-b" style="margin-top: 20px; padding: 15px; background: white; border-radius: 6px; max-height: 200px; overflow-y: auto;" role="log" aria-label="Scenario B timeline of events">
@@ -1726,6 +1748,9 @@
             // Update financial reality (IFVI Standard)
             updateFinancialReality(id, scenario, month, scenario.biobond, scenario.environment === 'metabolic');
             
+            // Update computational metrics (Lloyd-Sapolsky Framework)
+            updateComputationalMetrics(id, scenario, month);
+            
             // Update hidden damage display for dandelions
             if (scenario.sensitivity === 'dandelion' && scenario.environment === 'extractive') {
                 updateHiddenDamage(id, grimAge, cvRisk, fhri);
@@ -1906,6 +1931,21 @@
             }
         }
         
+        function toggleComputational(id) {
+            const content = document.getElementById(`computational-content-${id}`);
+            const arrow = document.getElementById(`computational-arrow-${id}`);
+            
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                arrow.textContent = '▲';
+                announce('Computational metrics detail expanded');
+            } else {
+                content.style.display = 'none';
+                arrow.textContent = '▼';
+                announce('Computational metrics detail collapsed');
+            }
+        }
+        
         function calculateBioLiability(scenario, month) {
             // Based on BCCM GlobalValueFactors methodology:
             // DALY_Value = $100,000 per Disability-Adjusted Life Year
@@ -2052,6 +2092,264 @@
                         </div>
                         <p style="margin: 10px 0 0 0; font-size: 0.85em; color: #92400e; font-style: italic;">
                             These externalized costs are OFF the company's balance sheet - this is ${biobondLevel < 100 ? 'fraudulent GAAP accounting' : 'prevented by full BioBond enforcement'}.
+                        </p>
+                    </div>
+                </div>
+            `;
+            
+            contentEl.innerHTML = html;
+        }
+        
+        function calculateComputationalMetrics(scenario, month) {
+            // Lloyd-grounded computational capacity calculations
+            // Based on "Computational Architecture of Agential Matter" framework
+            
+            const cpfc = scenario.data.cpfc[month];
+            const lgc = scenario.data.lgc[month];
+            const fhri = scenario.data.fhri[month];
+            const mfp = scenario.data.mfp[month];
+            
+            // BASELINE COMPUTATIONAL CAPACITY
+            // Human brain baseline: ~10^16 operations/second (Lloyd)
+            const BASELINE_OPS = 1e16;
+            
+            // Current capacity = baseline × C_PFC (throttled by stress)
+            const currentOps = BASELINE_OPS * cpfc;
+            const throttlePercent = (1 - cpfc) * 100;
+            
+            // COMPUTATIONAL WASTE METRICS
+            // Anxiety loops: wasted computation on threat scanning
+            // Proportional to (1 - FHRI) and L_GC
+            const anxietyWaste = BASELINE_OPS * (1 - fhri / 100) * lgc * 2.1;
+            
+            // Threat scanning: defensive computation overhead
+            const threatScanning = BASELINE_OPS * lgc * 0.87;
+            
+            // Available for productive task computation
+            const availableOps = currentOps - (anxietyWaste + threatScanning);
+            const availablePercent = (availableOps / BASELINE_OPS) * 100;
+            
+            // SEARCH ALGORITHM STATUS (7-layer stack)
+            // Layer 1: Reflex (always functional if alive)
+            const layer1 = cpfc > 0.1 ? 'FUNCTIONAL' : 'CRITICAL';
+            
+            // Layer 2: Context loading (degrades below FHRI 60)
+            const layer2 = fhri > 60 ? 'FUNCTIONAL' : fhri > 40 ? 'DEGRADED' : 'FAILING';
+            
+            // Layer 3: Metabolic governor (fails when L_GC > θ_crit ≈ 0.65)
+            const layer3 = lgc < 0.65 ? 'FUNCTIONAL' : lgc < 0.80 ? 'DEGRADED' : 'FAILING';
+            
+            // Layer 4: Plasticity/Learning (suspended under high stress)
+            const layer4 = cpfc > 0.60 && lgc < 0.65 ? 'FUNCTIONAL' : cpfc > 0.40 ? 'DEGRADED' : 'SUSPENDED';
+            
+            // Layer 5: Developmental (N/A for adults in short timeframe)
+            const layer5 = 'N/A';
+            
+            // Layer 6: Cultural/Institutional (accessible only with sufficient capacity)
+            const layer6 = cpfc > 0.60 && fhri > 60 ? 'ACCESSIBLE' : 'INACCESSIBLE';
+            
+            // Layer 7: Evolutionary (not relevant at individual timescale)
+            const layer7 = 'N/A';
+            
+            // SEARCH RADIUS (ability to explore solution space)
+            // 0-10 scale based on available capacity and stress
+            const searchRadius = Math.max(0, Math.min(10, (cpfc * 10) - (lgc * 5)));
+            
+            // Determine if trapped in local minimum
+            const trapped = searchRadius < 3;
+            
+            // THERMODYNAMIC COSTS (Landauer's Principle)
+            // Manual Mode erasure cost = kT ln(2) per bit
+            // At body temperature T ≈ 310K, kT ≈ 4.3 × 10^-21 J
+            const kT = 4.3e-21; // Joules at body temp
+            const BITS_PER_DECISION = 1e6; // Approximate bits for complex moral decision
+            
+            // Cost per operation increases with "temperature" (stress = L_GC)
+            const stressTemperature = kT * (1 + lgc * 2); // Effective temperature rises with stress
+            const costPerOp = stressTemperature * Math.log(2);
+            
+            // Manual Mode requires high-complexity computation
+            const manualModeOpsRequired = 1e15; // Operations per second for Manual Mode
+            const manualModeEnergy = manualModeOpsRequired * costPerOp; // Watts
+            
+            // Available energy budget (human brain ≈ 20W baseline)
+            const BASELINE_ENERGY = 20; // Watts
+            const availableEnergy = BASELINE_ENERGY * cpfc; // Reduced by stress
+            
+            // Energy cost multiplier due to stress
+            const costMultiplier = 1 + (lgc * 1.7);
+            
+            // Calculate deficit
+            const energyDeficit = manualModeEnergy * costMultiplier - availableEnergy;
+            const hasDeficit = energyDeficit > 0;
+            
+            // Determine operational mode
+            const mode = hasDeficit ? 'AUTOMATIC MODE FORCED' : cpfc > 0.60 ? 'MANUAL MODE AVAILABLE' : 'DEGRADED MODE';
+            
+            return {
+                // Capacity metrics
+                baselineOps: BASELINE_OPS,
+                currentOps: currentOps,
+                throttlePercent: throttlePercent,
+                availableOps: availableOps,
+                availablePercent: availablePercent,
+                
+                // Waste metrics
+                anxietyWaste: anxietyWaste,
+                threatScanning: threatScanning,
+                
+                // Layer status
+                layers: { layer1, layer2, layer3, layer4, layer5, layer6, layer7 },
+                
+                // Search capacity
+                searchRadius: searchRadius,
+                trapped: trapped,
+                
+                // Thermodynamics
+                kT: kT,
+                stressTemperature: stressTemperature,
+                costPerOp: costPerOp,
+                costMultiplier: costMultiplier,
+                availableEnergy: availableEnergy,
+                manualModeEnergy: manualModeEnergy * costMultiplier,
+                energyDeficit: energyDeficit,
+                hasDeficit: hasDeficit,
+                mode: mode
+            };
+        }
+        
+        function updateComputationalMetrics(id, scenario, month) {
+            // Don't show at month 0
+            if (month === 0) {
+                document.getElementById(`computational-metrics-${id}`).style.display = 'none';
+                return;
+            }
+            
+            // Show the computational panel
+            document.getElementById(`computational-metrics-${id}`).style.display = 'block';
+            
+            const contentEl = document.getElementById(`computational-content-${id}`);
+            const metrics = calculateComputationalMetrics(scenario, month);
+            
+            // Helper function for scientific notation
+            const formatSci = (val) => {
+                if (val >= 1e15) {
+                    return (val / 1e15).toFixed(1) + '×10¹⁵';
+                } else if (val >= 1e12) {
+                    return (val / 1e12).toFixed(1) + '×10¹²';
+                } else if (val >= 1e9) {
+                    return (val / 1e9).toFixed(1) + '×10⁹';
+                } else if (val <= 1e-18) {
+                    return (val * 1e21).toFixed(1) + '×10⁻²¹';
+                } else if (val <= 1e-15) {
+                    return (val * 1e18).toFixed(1) + '×10⁻¹⁸';
+                } else if (val <= 1e-12) {
+                    return (val * 1e15).toFixed(1) + '×10⁻¹⁵';
+                } else {
+                    return val.toFixed(2);
+                }
+            };
+            
+            // Color coding for status
+            const statusColor = (status) => {
+                if (status === 'FUNCTIONAL' || status === 'ACCESSIBLE' || status === 'MANUAL MODE AVAILABLE') return '#10b981';
+                if (status === 'DEGRADED' || status === 'DEGRADED MODE') return '#f59e0b';
+                if (status === 'FAILING' || status === 'SUSPENDED' || status === 'INACCESSIBLE' || status === 'AUTOMATIC MODE FORCED' || status === 'CRITICAL') return '#ef4444';
+                return '#6b7280';
+            };
+            
+            const searchColor = metrics.trapped ? '#ef4444' : metrics.searchRadius > 6 ? '#10b981' : '#f59e0b';
+            
+            let html = `
+                <div style="font-size: 0.95em; line-height: 1.8;">
+                    <p style="margin: 0 0 15px 0; font-size: 0.9em; color: #6b7280; font-style: italic;">
+                        Based on Seth Lloyd's computational universe framework: Human cognition = information processing 
+                        bounded by thermodynamic limits. Stress throttles computational capacity, forcing system into 
+                        low-complexity "Automatic Mode" as thermodynamic necessity.
+                    </p>
+                    
+                    <!-- LOGICAL OPERATIONS PANEL -->
+                    <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 6px; border-left: 4px solid #8b5cf6;">
+                        <h5 style="margin: 0 0 10px 0; color: #6b21a8; font-size: 1em;">🖥️ LOGICAL OPERATIONS (Lloyd Limit)</h5>
+                        <div style="font-family: 'Courier New', monospace; font-size: 0.9em;">
+                            <div>Baseline Brain Capacity: ${formatSci(metrics.baselineOps)} ops/sec</div>
+                            <div>Stress Throttle: <span style="color: ${metrics.throttlePercent > 50 ? '#ef4444' : '#f59e0b'};">-${metrics.throttlePercent.toFixed(0)}%</span> (C_PFC collapse)</div>
+                            <div style="font-weight: 600; margin-top: 5px;">Effective Capacity: ${formatSci(metrics.currentOps)} ops/sec</div>
+                        </div>
+                        
+                        <div style="margin-top: 15px; padding: 10px; background: #fef3c7; border-radius: 4px;">
+                            <div style="font-weight: 600; color: #92400e; margin-bottom: 5px;">COMPUTATIONAL WASTE THIS MONTH:</div>
+                            <div style="font-size: 0.85em; color: #78350f;">
+                                <div>• Anxiety loops: ${formatSci(metrics.anxietyWaste)} ops (wasted)</div>
+                                <div>• Threat scanning: ${formatSci(metrics.threatScanning)} ops (defensive)</div>
+                                <div style="margin-top: 5px; font-weight: 600;">• Available for task: ${formatSci(metrics.availableOps)} ops (${metrics.availablePercent.toFixed(0)}% of max)</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- SEARCH ALGORITHM STATUS PANEL -->
+                    <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 6px; border-left: 4px solid #8b5cf6;">
+                        <h5 style="margin: 0 0 10px 0; color: #6b21a8; font-size: 1em;">🔍 SEARCH ALGORITHM STATUS (7-Layer Stack)</h5>
+                        <div style="font-size: 0.85em;">
+                            <div style="margin-bottom: 3px;">Layer 1 (Reflex): <span style="color: ${statusColor(metrics.layers.layer1)}; font-weight: 600;">${metrics.layers.layer1}</span> <span style="color: #6b7280;">(amygdala ${metrics.layers.layer1 === 'FUNCTIONAL' ? 'responsive' : 'overwhelmed'})</span></div>
+                            <div style="margin-bottom: 3px;">Layer 2 (Context): <span style="color: ${statusColor(metrics.layers.layer2)}; font-weight: 600;">${metrics.layers.layer2}</span> <span style="color: #6b7280;">(sensory integration ${metrics.layers.layer2 === 'FUNCTIONAL' ? 'accurate' : 'biased'})</span></div>
+                            <div style="margin-bottom: 3px;">Layer 3 (Metabolic): <span style="color: ${statusColor(metrics.layers.layer3)}; font-weight: 600;">${metrics.layers.layer3}</span> <span style="color: #6b7280;">(L_GC = ${(scenario.data.lgc[month]).toFixed(2)})</span></div>
+                            <div style="margin-bottom: 3px;">Layer 4 (Plasticity): <span style="color: ${statusColor(metrics.layers.layer4)}; font-weight: 600;">${metrics.layers.layer4}</span> <span style="color: #6b7280;">(learning ${metrics.layers.layer4 === 'SUSPENDED' ? 'impossible' : 'possible'})</span></div>
+                            <div style="margin-bottom: 3px;">Layer 5 (Development): <span style="color: #6b7280; font-weight: 600;">${metrics.layers.layer5}</span> <span style="color: #6b7280;">(adult - long-term only)</span></div>
+                            <div style="margin-bottom: 3px;">Layer 6 (Cultural): <span style="color: ${statusColor(metrics.layers.layer6)}; font-weight: 600;">${metrics.layers.layer6}</span> <span style="color: #6b7280;">(institutional reasoning ${metrics.layers.layer6 === 'ACCESSIBLE' ? 'enabled' : 'offline'})</span></div>
+                            <div>Layer 7 (Evolutionary): <span style="color: #6b7280; font-weight: 600;">${metrics.layers.layer7}</span> <span style="color: #6b7280;">(generational timescale)</span></div>
+                        </div>
+                        
+                        <div style="margin-top: 15px; padding: 10px; background: ${metrics.trapped ? '#fee2e2' : '#f0fdf4'}; border-radius: 4px;">
+                            <div style="font-weight: 600; color: ${searchColor};">SEARCH RADIUS: ${metrics.searchRadius.toFixed(1)}/10</div>
+                            <div style="font-size: 0.85em; color: ${searchColor}; margin-top: 3px;">
+                                ${metrics.trapped ? 
+                                    '⚠️ Trapped in local minimum - system cannot explore solution space' : 
+                                    metrics.searchRadius > 6 ? 
+                                        '✓ High search capacity - can explore novel solutions (Levin-style adaptation)' :
+                                        '⚡ Limited search capacity - can only access nearby solutions'
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- THERMODYNAMIC COSTS PANEL -->
+                    <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 6px; border-left: 4px solid #8b5cf6;">
+                        <h5 style="margin: 0 0 10px 0; color: #6b21a8; font-size: 1em;">🌡️ THERMODYNAMIC COSTS (Landauer's Principle)</h5>
+                        <div style="font-family: 'Courier New', monospace; font-size: 0.9em;">
+                            <div>Landauer Erasure (Manual Mode): ${formatSci(metrics.costPerOp)} J/op</div>
+                            <div>Current kT (Stress Temperature): ${formatSci(metrics.stressTemperature)} J</div>
+                            <div>Cost Multiplier: <span style="color: ${metrics.costMultiplier > 2 ? '#ef4444' : '#f59e0b'};">${metrics.costMultiplier.toFixed(1)}× baseline</span></div>
+                        </div>
+                        
+                        <div style="margin-top: 15px; padding: 10px; background: ${metrics.hasDeficit ? '#fee2e2' : '#f0fdf4'}; border-radius: 4px;">
+                            <div style="font-weight: 600; color: #374151; margin-bottom: 5px;">ENERGY BUDGET:</div>
+                            <div style="font-size: 0.85em;">
+                                <div>• Available (metabolic): ${metrics.availableEnergy.toFixed(1)} W</div>
+                                <div>• Required (Manual Mode): ${metrics.manualModeEnergy.toFixed(1)} W</div>
+                                <div style="margin-top: 5px; font-weight: 600; color: ${metrics.hasDeficit ? '#991b1b' : '#065f46'};">
+                                    • ${metrics.hasDeficit ? 'DEFICIT' : 'SURPLUS'}: ${(metrics.hasDeficit ? '-' : '+') + Math.abs(metrics.energyDeficit).toFixed(1)} W
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 10px; padding: 10px; background: #e0e7ff; border-radius: 4px; border: 2px solid ${statusColor(metrics.mode)};">
+                            <div style="font-weight: 700; color: ${statusColor(metrics.mode)}; font-size: 1.05em;">
+                                OPERATIONAL MODE: ${metrics.mode}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- INTERPRETATION -->
+                    <div style="padding: 15px; background: #fef3c7; border-radius: 6px; border-left: 4px solid #f59e0b;">
+                        <h5 style="margin: 0 0 10px 0; color: #92400e; font-size: 1em;">📊 INTERPRETATION</h5>
+                        <p style="margin: 0; font-size: 0.9em; color: #78350f;">
+                            ${metrics.hasDeficit ? 
+                                `System has <strong>insufficient energy</strong> to run Manual Mode computation. This is not a moral failure—it's a <strong>thermodynamic impossibility</strong>. The brain is protecting itself from thermal damage by forcing Automatic Mode. <strong>BioBond intervention required</strong> to restore computational capacity.` :
+                                metrics.mode === 'MANUAL MODE AVAILABLE' ?
+                                `System has <strong>sufficient capacity</strong> for complex reasoning, ethical deliberation, and creative problem-solving. Manual Mode accessible. This is the computational state required for moral agency and institutional coordination.` :
+                                `System operating in <strong>degraded state</strong>. Some Manual Mode functions accessible but unreliable. Computational capacity reduced by stress throttling. BioBond would improve reliability and reduce cognitive load.`
+                            }
                         </p>
                     </div>
                 </div>
