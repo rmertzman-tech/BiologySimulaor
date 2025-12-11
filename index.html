@@ -675,6 +675,75 @@
                 display: none !important;
             }
         }
+        
+        /* Demo Narration Sidebar Styles */
+        #demo-narration-sidebar {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 350px;
+            height: 100vh;
+            background: #f8fafc;
+            border-left: 3px solid #f59e0b;
+            overflow-y: auto;
+            padding: 0;
+            box-shadow: -4px 0 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+        
+        #demo-narration-sidebar.collapsed {
+            transform: translateX(100%);
+        }
+        
+        .narration-collapse-btn {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            font-size: 1em;
+            font-weight: 600;
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .narration-collapse-btn:hover {
+            background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+        }
+        
+        #narration-content {
+            padding: 20px;
+        }
+        
+        .main-content-with-sidebar {
+            margin-right: 350px;
+        }
+        
+        /* Responsive: Mobile/Tablet */
+        @media (max-width: 1200px) {
+            #demo-narration-sidebar {
+                width: 100%;
+                height: 40vh;
+                top: auto;
+                bottom: 0;
+                border-left: none;
+                border-top: 3px solid #f59e0b;
+            }
+            
+            #demo-narration-sidebar.collapsed {
+                transform: translateY(100%);
+            }
+            
+            .main-content-with-sidebar {
+                margin-right: 0;
+                margin-bottom: 40vh;
+            }
+        }
     </style>
 </head>
 <body>
@@ -779,6 +848,213 @@
                     <strong>This isn't about "resilience" or "coping"</strong>—it's about understanding the biology of institutional harm and demanding biocompatible design. Let's begin.
                 </p>
             </div>
+            
+            <!-- UNDERSTANDING THE METRICS SECTION -->
+            <section id="understanding-metrics" class="section active" style="margin-top: 30px; margin-bottom: 30px;">
+                <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <h2 style="color: white; margin: 0; text-align: center; font-size: 1.3em;">📚 Understanding the Metrics</h2>
+                    <p style="color: rgba(255,255,255,0.9); text-align: center; margin: 10px 0 0 0; font-size: 0.95em;">
+                        Click any section below to learn key concepts before exploring the simulator
+                    </p>
+                </div>
+                
+                <!-- Computational Capacity Card -->
+                <div style="margin-bottom: 15px; border: 2px solid #3b82f6; border-radius: 8px; overflow: hidden;">
+                    <div style="background: #dbeafe; padding: 15px; cursor: pointer;" onclick="toggleExplanation('computational')" role="button" tabindex="0" aria-expanded="false" aria-controls="explanation-computational">
+                        <h3 style="margin: 0; color: #1e40af; font-size: 1.1em; display: flex; align-items: center; justify-content: space-between;">
+                            <span>🖥️ What is "Computational Capacity"?</span>
+                            <span id="explanation-arrow-computational" style="font-size: 1.2em;">▶</span>
+                        </h3>
+                    </div>
+                    <div id="explanation-computational" style="display: none; padding: 20px; background: #f0f9ff; border-top: 2px solid #3b82f6;">
+                        <p style="margin: 0 0 15px 0; line-height: 1.7;">
+                            <strong>Your brain processes information at approximately 10¹⁶ operations per second</strong> (from Seth Lloyd's computational cosmology research). This is your <em>baseline computational capacity</em>—the information processing power available for thinking, reasoning, and decision-making.
+                        </p>
+                        <p style="margin: 0 0 15px 0; line-height: 1.7;">
+                            <strong>Stress reduces this capacity</strong> by throttling your prefrontal cortex (C_PFC). When glucocorticoid load (L_GC) exceeds critical thresholds (~0.65), your brain enters "thermal throttling mode"—reducing processing power to prevent metabolic damage. This is not a choice; it's thermodynamics.
+                        </p>
+                        <div style="background: #e0f2fe; padding: 15px; border-left: 4px solid #0284c7; margin: 15px 0;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; color: #0c4a6e;">Real-World Example:</p>
+                            <p style="margin: 0; line-height: 1.7;">
+                                <strong>At 85% capacity (healthy):</strong> You can engage in moral reasoning, creative problem-solving, and complex coordination. Manual Mode is accessible.<br><br>
+                                <strong>At 35% capacity (burnout):</strong> You cannot run these computations—the hardware literally lacks the power. Your brain forces Automatic Mode (reflexes, habits) to conserve energy. This is why stressed workers "can't think straight"—it's physics, not character.
+                            </p>
+                        </div>
+                        <p style="margin: 0; font-style: italic; color: #475569;">
+                            In the simulator, watch how operations/second drops from 8.5×10¹⁵ (healthy) to 3.5×10¹⁵ (burnout) in extractive environments—a 65% loss of cognitive capacity.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Search Radius Card -->
+                <div style="margin-bottom: 15px; border: 2px solid #8b5cf6; border-radius: 8px; overflow: hidden;">
+                    <div style="background: #ede9fe; padding: 15px; cursor: pointer;" onclick="toggleExplanation('search')" role="button" tabindex="0" aria-expanded="false" aria-controls="explanation-search">
+                        <h3 style="margin: 0; color: #6b21a8; font-size: 1.1em; display: flex; align-items: center; justify-content: space-between;">
+                            <span>🔍 What is "Search Radius"?</span>
+                            <span id="explanation-arrow-search" style="font-size: 1.2em;">▶</span>
+                        </h3>
+                    </div>
+                    <div id="explanation-search" style="display: none; padding: 20px; background: #faf5ff; border-top: 2px solid #8b5cf6;">
+                        <p style="margin: 0 0 15px 0; line-height: 1.7;">
+                            <strong>From Michael Levin's research on planaria regeneration:</strong> Biological systems can "search" for solutions to novel problems—even problems they've never encountered in their evolutionary history—if they have sufficient energy, time, and accessible options.
+                        </p>
+                        <p style="margin: 0 0 15px 0; line-height: 1.7;">
+                            <strong>Search Radius (0-10 scale)</strong> measures how many alternative solutions your brain can explore. High capacity = wide search (can see many options). Low capacity = trapped (stuck in local minimum, can only repeat known patterns).
+                        </p>
+                        <div style="background: #f3e8ff; padding: 15px; border-left: 4px solid #9333ea; margin: 15px 0;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; color: #581c87;">Real-World Example:</p>
+                            <p style="margin: 0; line-height: 1.7;">
+                                <strong>Radius 8 (high exploration):</strong> When facing a workplace conflict, you can consider multiple approaches—mediation, reframing, escalation, compromise. Creative solutions accessible.<br><br>
+                                <strong>Radius 2 (trapped):</strong> Same conflict, but you can only see two options: comply or quit. Your brain lacks the energy to explore alternatives. You're stuck in a binary choice pattern.
+                            </p>
+                        </div>
+                        <p style="margin: 0; font-style: italic; color: #475569;">
+                            In the simulator, watch how Search Radius collapses from 7.2 (healthy) to 1.8 (burnout). This explains why stressed teams "can't innovate"—they're computationally trapped, unable to navigate solution space.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Manual vs Automatic Mode Card -->
+                <div style="margin-bottom: 15px; border: 2px solid #10b981; border-radius: 8px; overflow: hidden;">
+                    <div style="background: #d1fae5; padding: 15px; cursor: pointer;" onclick="toggleExplanation('mode')" role="button" tabindex="0" aria-expanded="false" aria-controls="explanation-mode">
+                        <h3 style="margin: 0; color: #065f46; font-size: 1.1em; display: flex; align-items: center; justify-content: space-between;">
+                            <span>⚡ What is "Manual vs. Automatic Mode"?</span>
+                            <span id="explanation-arrow-mode" style="font-size: 1.2em;">▶</span>
+                        </h3>
+                    </div>
+                    <div id="explanation-mode" style="display: none; padding: 20px; background: #f0fdf4; border-top: 2px solid #10b981;">
+                        <p style="margin: 0 0 15px 0; line-height: 1.7;">
+                            Your brain operates in two computational modes, determined automatically by available energy:
+                        </p>
+                        <p style="margin: 0 0 10px 0; line-height: 1.7;">
+                            <strong>Manual Mode (High Complexity):</strong> Ethical reasoning, long-term planning, creative problem-solving, multi-variable analysis. Requires ~15 Watts of power and high C_PFC. Enables moral agency and institutional coordination.
+                        </p>
+                        <p style="margin: 0 0 15px 0; line-height: 1.7;">
+                            <strong>Automatic Mode (Low Complexity):</strong> Reflexes, habits, heuristics, tribal responses. Requires ~5 Watts. Fast and energy-efficient but cannot handle novel ethical dilemmas or complex coordination.
+                        </p>
+                        <div style="background: #d1fae5; padding: 15px; border-left: 4px solid #059669; margin: 15px 0;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; color: #065f46;">Landauer's Principle (Physics):</p>
+                            <p style="margin: 0; line-height: 1.7;">
+                                Erasing information (required for decision-making) dissipates energy as heat: E = kT ln(2). When stress raises your "system temperature" (L_GC), the energy cost per operation increases. If total cost exceeds your metabolic budget, the brain <strong>automatically switches to Automatic Mode</strong> to prevent thermal damage. This is thermodynamics, not choice.
+                            </p>
+                        </div>
+                        <div style="background: #fef3c7; padding: 15px; border-left: 4px solid #f59e0b; margin: 15px 0;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; color: #92400e;">Critical Insight:</p>
+                            <p style="margin: 0; line-height: 1.7;">
+                                When the simulator shows "AUTOMATIC MODE FORCED" with an energy deficit (e.g., -18.8W), this means Manual Mode is <em>thermodynamically impossible</em>. A nurse making triage decisions, an officer making split-second choices, a teacher managing a crisis—if they're in Automatic Mode due to chronic stress, they <strong>cannot engage in ethical deliberation</strong>. Not "won't"—<strong>cannot</strong>. BioBond interventions don't change values; they restore computational capacity.
+                            </p>
+                        </div>
+                        <p style="margin: 0; font-style: italic; color: #475569;">
+                            In the simulator, track the Energy Budget section to see when deficit appears. This is the moment moral agency becomes physically impossible.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 7 Layers Card -->
+                <div style="margin-bottom: 15px; border: 2px solid #f59e0b; border-radius: 8px; overflow: hidden;">
+                    <div style="background: #fed7aa; padding: 15px; cursor: pointer;" onclick="toggleExplanation('layers')" role="button" tabindex="0" aria-expanded="false" aria-controls="explanation-layers">
+                        <h3 style="margin: 0; color: #92400e; font-size: 1.1em; display: flex; align-items: center; justify-content: space-between;">
+                            <span>🧬 What are the "7 Layers" (Sapolsky Stack)?</span>
+                            <span id="explanation-arrow-layers" style="font-size: 1.2em;">▶</span>
+                        </h3>
+                    </div>
+                    <div id="explanation-layers" style="display: none; padding: 20px; background: #fffbeb; border-top: 2px solid #f59e0b;">
+                        <p style="margin: 0 0 15px 0; line-height: 1.7;">
+                            <strong>From Robert Sapolsky's "Behave":</strong> Every human action results from forces operating across seven distinct timescales, from milliseconds to eons. We model these as a <em>computational stack</em>—hierarchical layers where each handles different speeds and complexities of information processing.
+                        </p>
+                        <div style="background: #fef3c7; padding: 15px; border-radius: 6px; margin: 15px 0;">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr style="border-bottom: 2px solid #f59e0b;">
+                                    <th style="text-align: left; padding: 8px; color: #92400e;">Layer</th>
+                                    <th style="text-align: left; padding: 8px; color: #92400e;">Timescale</th>
+                                    <th style="text-align: left; padding: 8px; color: #92400e;">Function</th>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #fde68a;">
+                                    <td style="padding: 8px;">1 - Reflex</td>
+                                    <td style="padding: 8px;">ms-sec</td>
+                                    <td style="padding: 8px;">Immediate execution (amygdala)</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #fde68a;">
+                                    <td style="padding: 8px;">2 - Context</td>
+                                    <td style="padding: 8px;">sec-min</td>
+                                    <td style="padding: 8px;">Environmental assessment</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #fde68a;">
+                                    <td style="padding: 8px;"><strong>3 - Metabolic</strong></td>
+                                    <td style="padding: 8px;">hrs-days</td>
+                                    <td style="padding: 8px;"><strong>Hormonal control (CRITICAL)</strong></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #fde68a;">
+                                    <td style="padding: 8px;">4 - Plasticity</td>
+                                    <td style="padding: 8px;">days-mos</td>
+                                    <td style="padding: 8px;">Learning & adaptation</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #fde68a;">
+                                    <td style="padding: 8px;">5 - Development</td>
+                                    <td style="padding: 8px;">years</td>
+                                    <td style="padding: 8px;">Epigenetic programming</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #fde68a;">
+                                    <td style="padding: 8px;">6 - Cultural</td>
+                                    <td style="padding: 8px;">centuries</td>
+                                    <td style="padding: 8px;">Institutional protocols</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px;">7 - Evolutionary</td>
+                                    <td style="padding: 8px;">eons</td>
+                                    <td style="padding: 8px;">Genetic optimization</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="background: #fee2e2; padding: 15px; border-left: 4px solid #ef4444; margin: 15px 0;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; color: #991b1b;">The Cascade Failure Pattern:</p>
+                            <p style="margin: 0; line-height: 1.7;">
+                                <strong>Layer 3 is the critical point.</strong> When hormonal stress (L_GC) exceeds ~0.65, Layer 3 FAILS. This cascades:<br><br>
+                                → Layers 1-2 (faster) DEGRADE (reflexes sharpen, context narrows to threats)<br>
+                                → Layers 4-6 (slower) become INACCESSIBLE (can't learn, can't coordinate, can't access culture)<br><br>
+                                The entire computational stack collapses from the middle. This is why chronic stress destroys moral agency—it's not just "stress," it's <strong>architectural failure of the cognitive system</strong>.
+                            </p>
+                        </div>
+                        <p style="margin: 0; font-style: italic; color: #475569;">
+                            In the simulator, watch for Layer 3 status. When it shows FAILING, you'll see Layers 4-6 immediately shift to DEGRADED or INACCESSIBLE. This is the cascade in real-time.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- GUIDED DEMONSTRATIONS SECTION -->
+            <section id="guided-demos" class="section active" style="margin-bottom: 30px;">
+                <div style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <h2 style="color: white; margin: 0; text-align: center; font-size: 1.3em;">🎬 Guided Demonstrations</h2>
+                    <p style="color: rgba(255,255,255,0.9); text-align: center; margin: 10px 0 0 0; font-size: 0.95em;">
+                        Learn by watching expert analysis before creating your own scenarios
+                    </p>
+                </div>
+                
+                <p style="text-align: center; margin-bottom: 20px; color: #475569; line-height: 1.7;">
+                    Each demo automatically configures the simulator and provides month-by-month narration explaining what to look for and why it matters. You control the pace—advance when ready.
+                </p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 20px 0;">
+                    <button onclick="startDemo(1)" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; padding: 20px; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; transition: transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                        <div style="font-size: 2em; margin-bottom: 10px;">🔥</div>
+                        <div style="font-weight: 600; margin-bottom: 8px; font-size: 1.1em;">Demo 1: The Burnout Cascade</div>
+                        <div style="font-size: 0.9em; opacity: 0.9;">Watch computational capacity collapse month-by-month in an extractive environment. See Layer 3 failure trigger the cascade.</div>
+                    </button>
+                    
+                    <button onclick="startDemo(2)" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 20px; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; transition: transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                        <div style="font-size: 2em; margin-bottom: 10px;">🌱</div>
+                        <div style="font-weight: 600; margin-bottom: 8px; font-size: 1.1em;">Demo 2: BioBond Recovery</div>
+                        <div style="font-size: 0.9em; opacity: 0.9;">Compare extractive vs. metabolic side-by-side. Same person, 271% more capacity. See how BioBond restores computational substrate.</div>
+                    </button>
+                    
+                    <button onclick="startDemo(3)" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); color: white; padding: 20px; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; transition: transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                        <div style="font-size: 2em; margin-bottom: 10px;">🌸🌼</div>
+                        <div style="font-weight: 600; margin-bottom: 8px; font-size: 1.1em;">Demo 3: Orchid vs. Dandelion</div>
+                        <div style="font-size: 0.9em; opacity: 0.9;">Same harsh environment, different phenotypes. Why "resilient" dandelions accumulate silent damage while orchids show visible collapse.</div>
+                    </button>
+                </div>
+            </section>
             
             <!-- COMPARISON SETUP SECTION -->
             <section id="comparison-setup" class="section active" aria-labelledby="comparison-heading">
@@ -1944,6 +2220,708 @@
                 arrow.textContent = '▼';
                 announce('Computational metrics detail collapsed');
             }
+        }
+        
+        function toggleExplanation(id) {
+            const content = document.getElementById(`explanation-${id}`);
+            const arrow = document.getElementById(`explanation-arrow-${id}`);
+            
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                arrow.textContent = '▼';
+                announce(`Explanation for ${id} expanded`);
+            } else {
+                content.style.display = 'none';
+                arrow.textContent = '▶';
+                announce(`Explanation for ${id} collapsed`);
+            }
+        }
+        
+        // Demo Mode State
+        let demoMode = {
+            active: false,
+            currentDemo: null,
+            autoAdvance: false,
+            autoAdvanceTimer: null,
+            currentMonth: 0,
+            maxMonth: 12
+        };
+        
+        function startDemo(demoNumber) {
+            // Exit any existing demo first
+            if (demoMode.active) {
+                exitDemo();
+            }
+            
+            demoMode.active = true;
+            demoMode.currentDemo = demoNumber;
+            demoMode.currentMonth = 1;
+            
+            // Configure scenario based on demo
+            configureDemoScenario(demoNumber);
+            
+            // Show narration sidebar
+            showNarrationSidebar();
+            
+            // Show demo controls
+            showDemoControls();
+            
+            // Hide normal configuration
+            document.getElementById('comparison-setup').style.display = 'none';
+            
+            // Scroll to results
+            document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+            
+            // Load Month 1
+            advanceDemoToMonth(1);
+        }
+        
+        function configureDemoScenario(demoNumber) {
+            if (demoNumber === 1) {
+                // Demo 1: Burnout Cascade (Extractive, Orchid-Warrior, 0% BioBond)
+                scenarios.a = {
+                    sensitivity: 'orchid',
+                    stressStyle: 'warrior',
+                    environment: 'extractive',
+                    biobond: 0,
+                    name: 'Demo 1: Burnout Cascade',
+                    data: { fhri: [], cpfc: [], lgc: [], mfp: [], grimAge: [], cvRisk: [] }
+                };
+                scenarios.b = null; // Hide Scenario B for this demo
+                
+                // Run simulation for Scenario A
+                runSimulation(scenarios.a);
+                
+            } else if (demoNumber === 2) {
+                // Demo 2: BioBond Recovery (Side-by-side comparison)
+                scenarios.a = {
+                    sensitivity: 'orchid',
+                    stressStyle: 'warrior',
+                    environment: 'extractive',
+                    biobond: 0,
+                    name: 'Extractive (0% BioBond)',
+                    data: { fhri: [], cpfc: [], lgc: [], mfp: [], grimAge: [], cvRisk: [] }
+                };
+                scenarios.b = {
+                    sensitivity: 'orchid',
+                    stressStyle: 'warrior',
+                    environment: 'metabolic',
+                    biobond: 100,
+                    name: 'Metabolic (100% BioBond)',
+                    data: { fhri: [], cpfc: [], lgc: [], mfp: [], grimAge: [], cvRisk: [] }
+                };
+                
+                runSimulation(scenarios.a);
+                runSimulation(scenarios.b);
+                
+            } else if (demoNumber === 3) {
+                // Demo 3: Orchid vs Dandelion (Both extractive, different phenotypes)
+                scenarios.a = {
+                    sensitivity: 'orchid',
+                    stressStyle: 'warrior',
+                    environment: 'extractive',
+                    biobond: 0,
+                    name: 'Orchid (High Sensitivity)',
+                    data: { fhri: [], cpfc: [], lgc: [], mfp: [], grimAge: [], cvRisk: [] }
+                };
+                scenarios.b = {
+                    sensitivity: 'dandelion',
+                    stressStyle: 'warrior',
+                    environment: 'extractive',
+                    biobond: 0,
+                    name: 'Dandelion (Low Sensitivity)',
+                    data: { fhri: [], cpfc: [], lgc: [], mfp: [], grimAge: [], cvRisk: [] }
+                };
+                
+                runSimulation(scenarios.a);
+                runSimulation(scenarios.b);
+            }
+        }
+        
+        function showNarrationSidebar() {
+            // Create sidebar if it doesn't exist
+            let sidebar = document.getElementById('demo-narration-sidebar');
+            if (!sidebar) {
+                sidebar = document.createElement('div');
+                sidebar.id = 'demo-narration-sidebar';
+                sidebar.innerHTML = `
+                    <div id="narration-collapse-btn" class="narration-collapse-btn" onclick="toggleNarrationSidebar()">
+                        ◀ Collapse Narration
+                    </div>
+                    <div id="narration-content"></div>
+                `;
+                document.body.appendChild(sidebar);
+            }
+            
+            sidebar.style.display = 'block';
+            document.getElementById('main-content').classList.add('main-content-with-sidebar');
+        }
+        
+        function hideNarrationSidebar() {
+            const sidebar = document.getElementById('demo-narration-sidebar');
+            if (sidebar) {
+                sidebar.style.display = 'none';
+            }
+            document.getElementById('main-content').classList.remove('main-content-with-sidebar');
+        }
+        
+        function toggleNarrationSidebar() {
+            const sidebar = document.getElementById('demo-narration-sidebar');
+            const btn = document.getElementById('narration-collapse-btn');
+            
+            if (sidebar.classList.contains('collapsed')) {
+                sidebar.classList.remove('collapsed');
+                btn.textContent = '◀ Collapse Narration';
+                document.getElementById('main-content').classList.add('main-content-with-sidebar');
+            } else {
+                sidebar.classList.add('collapsed');
+                btn.textContent = '▶ Show Narration';
+                document.getElementById('main-content').classList.remove('main-content-with-sidebar');
+            }
+        }
+        
+        function showDemoControls() {
+            let controls = document.getElementById('demo-controls');
+            if (!controls) {
+                controls = document.createElement('div');
+                controls.id = 'demo-controls';
+                
+                // Insert before results section
+                const resultsSection = document.getElementById('results-section');
+                resultsSection.parentNode.insertBefore(controls, resultsSection);
+            }
+            
+            const demoName = getDemoName(demoMode.currentDemo);
+            
+            controls.innerHTML = `
+                <div style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); padding: 20px; margin: 20px 0; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    <h3 style="color: white; margin: 0 0 15px 0; text-align: center; font-size: 1.2em;">
+                        🎬 ${demoName}
+                    </h3>
+                    <div style="text-align: center; color: white; margin-bottom: 15px; font-size: 1.1em;">
+                        Month <span id="demo-month-display">1</span> of 12
+                    </div>
+                    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                        <button id="demo-prev-btn" onclick="prevDemoMonth()" style="background: rgba(255,255,255,0.2); color: white; padding: 12px 24px; border: 2px solid white; border-radius: 6px; cursor: pointer; font-size: 1em; font-weight: 600;" ${demoMode.currentMonth <= 1 ? 'disabled' : ''}>
+                            ◀ Previous
+                        </button>
+                        <button id="demo-next-btn" onclick="nextDemoMonth()" style="background: white; color: #d97706; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-size: 1em; font-weight: 600;">
+                            Next Month ▶
+                        </button>
+                        <button id="auto-advance-btn" onclick="toggleAutoAdvance()" style="background: rgba(255,255,255,0.2); color: white; padding: 12px 24px; border: 2px solid white; border-radius: 6px; cursor: pointer; font-size: 1em; font-weight: 600;">
+                            ⏯ Auto-Advance: OFF
+                        </button>
+                        <button onclick="exitDemo()" style="background: #ef4444; color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-size: 1em; font-weight: 600;">
+                            Exit Demo
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            controls.style.display = 'block';
+        }
+        
+        function hideDemoControls() {
+            const controls = document.getElementById('demo-controls');
+            if (controls) {
+                controls.style.display = 'none';
+            }
+        }
+        
+        function getDemoName(demoNumber) {
+            const names = {
+                1: 'Demo 1: The Burnout Cascade',
+                2: 'Demo 2: BioBond Recovery',
+                3: 'Demo 3: Orchid vs. Dandelion'
+            };
+            return names[demoNumber] || 'Demo';
+        }
+        
+        function advanceDemoToMonth(month) {
+            demoMode.currentMonth = month;
+            
+            // Update displays
+            updateScenarioDisplay('a', scenarios.a, month);
+            if (scenarios.b) {
+                updateScenarioDisplay('b', scenarios.b, month);
+            }
+            
+            // Update narration
+            updateNarration(demoMode.currentDemo, month);
+            
+            // Update control buttons
+            document.getElementById('demo-month-display').textContent = month;
+            document.getElementById('demo-prev-btn').disabled = month <= 1;
+            document.getElementById('demo-next-btn').disabled = month >= 12;
+        }
+        
+        function nextDemoMonth() {
+            if (demoMode.currentMonth < 12) {
+                advanceDemoToMonth(demoMode.currentMonth + 1);
+            }
+        }
+        
+        function prevDemoMonth() {
+            if (demoMode.currentMonth > 1) {
+                advanceDemoToMonth(demoMode.currentMonth - 1);
+            }
+        }
+        
+        function toggleAutoAdvance() {
+            demoMode.autoAdvance = !demoMode.autoAdvance;
+            const btn = document.getElementById('auto-advance-btn');
+            
+            if (demoMode.autoAdvance) {
+                btn.textContent = '⏯ Auto-Advance: ON';
+                btn.style.background = 'white';
+                btn.style.color = '#d97706';
+                startAutoAdvance();
+            } else {
+                btn.textContent = '⏯ Auto-Advance: OFF';
+                btn.style.background = 'rgba(255,255,255,0.2)';
+                btn.style.color = 'white';
+                stopAutoAdvance();
+            }
+        }
+        
+        function startAutoAdvance() {
+            demoMode.autoAdvanceTimer = setInterval(() => {
+                if (demoMode.currentMonth < 12) {
+                    nextDemoMonth();
+                } else {
+                    stopAutoAdvance();
+                    document.getElementById('auto-advance-btn').textContent = '⏯ Auto-Advance: OFF';
+                    document.getElementById('auto-advance-btn').style.background = 'rgba(255,255,255,0.2)';
+                    document.getElementById('auto-advance-btn').style.color = 'white';
+                }
+            }, 3000); // 3 seconds per month
+        }
+        
+        function stopAutoAdvance() {
+            if (demoMode.autoAdvanceTimer) {
+                clearInterval(demoMode.autoAdvanceTimer);
+                demoMode.autoAdvanceTimer = null;
+                demoMode.autoAdvance = false;
+            }
+        }
+        
+        function exitDemo() {
+            // Stop auto-advance if running
+            stopAutoAdvance();
+            
+            // Hide sidebar and controls
+            hideNarrationSidebar();
+            hideDemoControls();
+            
+            // Show configuration panel
+            document.getElementById('comparison-setup').style.display = 'block';
+            
+            // Clear results
+            document.getElementById('results-section').style.display = 'none';
+            
+            // Reset demo mode
+            demoMode.active = false;
+            demoMode.currentDemo = null;
+            demoMode.autoAdvance = false;
+            demoMode.currentMonth = 0;
+            
+            // Scroll to configuration
+            document.getElementById('comparison-setup').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function updateNarration(demoNumber, month) {
+            const content = document.getElementById('narration-content');
+            if (!content) return;
+            
+            let narration = '';
+            
+            if (demoNumber === 1) {
+                // Demo 1: The Burnout Cascade
+                narration = getDemo1Narration(month);
+            } else if (demoNumber === 2) {
+                // Demo 2: BioBond Recovery
+                narration = getDemo2Narration(month);
+            } else if (demoNumber === 3) {
+                // Demo 3: Orchid vs Dandelion
+                narration = getDemo3Narration(month);
+            }
+            
+            content.innerHTML = narration;
+            
+            // Scroll narration to top when month changes
+            content.parentElement.scrollTop = 0;
+        }
+        
+        function getDemo1Narration(month) {
+            const narrations = {
+                1: `
+                    <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                        <h3 style="margin: 0 0 10px 0; color: #92400e; font-size: 1.2em;">📖 Month 1: Baseline State</h3>
+                        <div style="background: white; padding: 12px; border-radius: 6px; margin-top: 10px;">
+                            <p style="margin: 0; font-weight: 600; color: #78350f;">What to look for:</p>
+                        </div>
+                    </div>
+                    
+                    <div style="line-height: 1.8; color: #334155;">
+                        <p style="margin-bottom: 15px;">
+                            This is the starting point—a healthy human operating in an extractive environment. The person hasn't yet accumulated significant stress, so we're seeing their <strong>baseline biological state</strong>.
+                        </p>
+                        
+                        <div style="background: #dbeafe; padding: 15px; border-left: 4px solid #3b82f6; margin: 15px 0; border-radius: 4px;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; color: #1e40af;">💻 Computational Metrics Panel:</p>
+                            <p style="margin: 0;">
+                                Scroll down to find the purple "Computational Capacity Metrics" panel. You should see:
+                            </p>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li><strong>Operations:</strong> ~8.5×10¹⁵ ops/sec (85% of max)</li>
+                                <li><strong>All layers:</strong> FUNCTIONAL or ACCESSIBLE</li>
+                                <li><strong>Search radius:</strong> ~7.2/10 (can explore solutions)</li>
+                                <li><strong>Energy:</strong> SURPLUS (+3.2W for Manual Mode)</li>
+                            </ul>
+                        </div>
+                        
+                        <p style="margin-bottom: 15px;">
+                            <strong>What this means:</strong> This person has computational CAPACITY for moral agency. They can engage in ethical reasoning, learn new patterns, coordinate with complex institutions, and search for creative solutions.
+                        </p>
+                        
+                        <p style="margin-bottom: 15px;">
+                            <strong>Note the FHRI:</strong> Should be around 80-85. This is healthy functional capacity—they can perform their job, maintain relationships, handle stress appropriately.
+                        </p>
+                        
+                        <div style="background: #fef3c7; padding: 15px; border-left: 4px solid #f59e0b; margin: 15px 0; border-radius: 4px;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; color: #92400e;">🎯 Key Learning:</p>
+                            <p style="margin: 0;">
+                                Remember these numbers. Over the next 11 months, you'll watch them collapse in the extractive environment. This isn't about "weak character"—it's about <strong>biological systems responding to toxic design</strong>.
+                            </p>
+                        </div>
+                        
+                        <p style="margin-top: 20px; text-align: center; padding: 15px; background: #e0f2fe; border-radius: 6px; font-weight: 600; color: #0c4a6e;">
+                            Click "Next Month" when you're ready to see the cascade begin →
+                        </p>
+                    </div>
+                `,
+                
+                3: `
+                    <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                        <h3 style="margin: 0 0 10px 0; color: #92400e; font-size: 1.2em;">📖 Month 3: Early Degradation</h3>
+                        <div style="background: white; padding: 12px; border-radius: 6px; margin-top: 10px;">
+                            <p style="margin: 0; font-weight: 600; color: #78350f;">What to look for:</p>
+                        </div>
+                    </div>
+                    
+                    <div style="line-height: 1.8; color: #334155;">
+                        <p style="margin-bottom: 15px;">
+                            After 3 months in the extractive environment, <strong>stress is accumulating</strong>. The person is still functional, but cracks are appearing in the computational architecture.
+                        </p>
+                        
+                        <div style="background: #dbeafe; padding: 15px; border-left: 4px solid #3b82f6; margin: 15px 0; border-radius: 4px;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; color: #1e40af;">💻 Check Computational Metrics:</p>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li><strong>Operations:</strong> Dropped to ~6.8×10¹⁵ ops/sec (68% capacity)</li>
+                                <li><strong>Layer 2 (Context):</strong> Starting to show DEGRADED status</li>
+                                <li><strong>Anxiety waste:</strong> Increasing (more energy spent on threat scanning)</li>
+                                <li><strong>Search radius:</strong> 5.4 (declining—fewer options visible)</li>
+                            </ul>
+                        </div>
+                        
+                        <p style="margin-bottom: 15px;">
+                            <strong>What's happening biologically:</strong> L_GC (glucocorticoid load) is rising. The person's amygdala is becoming more sensitive to threats, while their prefrontal cortex is starting to struggle with complex reasoning.
+                        </p>
+                        
+                        <p style="margin-bottom: 15px;">
+                            <strong>In the workplace:</strong> They're still showing up, still "productive" by traditional metrics. But they're taking longer to solve problems, feeling more irritable, sleeping slightly worse. Most managers wouldn't notice anything wrong yet.
+                        </p>
+                        
+                        <div style="background: #fee2e2; padding: 15px; border-left: 4px solid #ef4444; margin: 15px 0; border-radius: 4px;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; color: #991b1b;">⚠️ The Invisible Phase:</p>
+                            <p style="margin: 0;">
+                                This is when intervention would be CHEAPEST and EASIEST. But extractive organizations don't measure L_GC or C_PFC. They wait until Month 6-8 when the person is visibly collapsing. By then, the damage is severe and expensive to reverse.
+                            </p>
+                        </div>
+                        
+                        <p style="margin-top: 20px; text-align: center; padding: 15px; background: #fef3c7; border-radius: 6px; font-weight: 600; color: #92400e;">
+                            The cascade is building. Continue to Month 6 to see the critical threshold →
+                        </p>
+                    </div>
+                `,
+                
+                6: `
+                    <div style="background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                        <h3 style="margin: 0 0 10px 0; color: #991b1b; font-size: 1.2em;">🔥 Month 6: CRITICAL THRESHOLD CROSSED</h3>
+                        <div style="background: white; padding: 12px; border-radius: 6px; margin-top: 10px;">
+                            <p style="margin: 0; font-weight: 600; color: #991b1b;">THIS IS THE CASCADE POINT</p>
+                        </div>
+                    </div>
+                    
+                    <div style="line-height: 1.8; color: #334155;">
+                        <p style="margin-bottom: 15px; font-size: 1.05em; font-weight: 600; color: #991b1b;">
+                            Layer 3 has FAILED. Watch what happens next.
+                        </p>
+                        
+                        <div style="background: #fee2e2; padding: 15px; border-left: 4px solid #ef4444; margin: 15px 0; border-radius: 4px;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; color: #991b1b;">💻 Critical Metrics Check:</p>
+                            <ul style="margin: 10px 0 0 20px; color: #7f1d1d;">
+                                <li><strong>Operations:</strong> DROPPED to ~4.2×10¹⁵ ops/sec (58% loss from baseline!)</li>
+                                <li><strong>Layer 3 (Metabolic):</strong> <span style="background: #991b1b; color: white; padding: 2px 6px; border-radius: 3px;">FAILING</span> (L_GC = 0.78, over 0.65 threshold)</li>
+                                <li><strong>Layer 4 (Plasticity):</strong> <span style="background: #dc2626; color: white; padding: 2px 6px; border-radius: 3px;">SUSPENDED</span> (learning impossible)</li>
+                                <li><strong>Layer 6 (Cultural):</strong> <span style="background: #ef4444; color: white; padding: 2px 6px; border-radius: 3px;">INACCESSIBLE</span> (can't coordinate)</li>
+                                <li><strong>Search radius:</strong> 2.3/10 (TRAPPED—can't adapt)</li>
+                                <li><strong>Energy:</strong> <span style="background: #991b1b; color: white; padding: 2px 6px; border-radius: 3px;">DEFICIT -18.8W</span></li>
+                                <li><strong>Mode:</strong> <span style="background: #7f1d1d; color: white; padding: 2px 6px; border-radius: 3px; font-weight: 700;">AUTOMATIC MODE FORCED</span></li>
+                            </ul>
+                        </div>
+                        
+                        <p style="margin-bottom: 15px; font-weight: 600;">
+                            <strong>What just happened:</strong>
+                        </p>
+                        
+                        <p style="margin-bottom: 15px;">
+                            When L_GC exceeded 0.65, <strong>Layer 3 (hormonal/metabolic control) failed</strong>. This is Robert Sapolsky's critical threshold—the point where chronic glucocorticoid exposure starts causing structural brain changes.
+                        </p>
+                        
+                        <p style="margin-bottom: 15px;">
+                            <strong>The cascade:</strong> Layer 3 failure immediately degraded Layers 1-2 (reflexes sharpen, context narrows to threats) and made Layers 4-6 inaccessible (can't learn, can't adapt, can't coordinate with institutions).
+                        </p>
+                        
+                        <div style="background: #e0f2fe; padding: 15px; border-left: 4px solid #0284c7; margin: 15px 0; border-radius: 4px;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; color: #0c4a6e;">🌡️ The Thermodynamic Reality:</p>
+                            <p style="margin: 0;">
+                                Look at the Energy Budget section. The brain needs ~27.3W to run Manual Mode (ethical reasoning). But only 8.5W is available. <strong>Deficit: -18.8W</strong>.
+                            </p>
+                            <p style="margin: 10px 0 0 0; font-weight: 600;">
+                                This person CANNOT engage in Manual Mode reasoning. Not "won't"—<strong>CANNOT</strong>. Thermodynamically impossible.
+                            </p>
+                        </div>
+                        
+                        <p style="margin-bottom: 15px;">
+                            <strong>What this looks like in practice:</strong>
+                        </p>
+                        
+                        <ul style="margin: 0 0 15px 20px; line-height: 2;">
+                            <li>A nurse making triage decisions → Can only follow protocols, can't reason about edge cases</li>
+                            <li>An officer in a traffic stop → Reacts reflexively, can't pause to assess context</li>
+                            <li>A teacher managing a crisis → Falls back on rigid rules, can't adapt to student needs</li>
+                        </ul>
+                        
+                        <p style="margin-bottom: 15px; font-weight: 600; color: #991b1b;">
+                            This is not moral failure. This is PHYSICS. The computational substrate has crashed.
+                        </p>
+                        
+                        <div style="background: #fef3c7; padding: 15px; border-left: 4px solid #f59e0b; margin: 15px 0; border-radius: 4px;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; color: #92400e;">💡 Why BioBond Works:</p>
+                            <p style="margin: 0;">
+                                BioBond interventions (safe staffing, predictable schedules, processing time) keep L_GC BELOW 0.65. When Layer 3 stays functional, the entire stack stays online. This isn't "being nice"—it's <strong>thermal management for the social computer</strong>.
+                            </p>
+                        </div>
+                        
+                        <p style="margin-top: 20px; text-align: center; padding: 15px; background: #fee2e2; border-radius: 6px; font-weight: 600; color: #991b1b;">
+                            The system is now in collapse mode. Continue to Month 12 to see the end state →
+                        </p>
+                    </div>
+                `,
+                
+                9: `
+                    <div style="background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                        <h3 style="margin: 0 0 10px 0; color: #991b1b; font-size: 1.2em;">📖 Month 9: Locked in Survival Mode</h3>
+                    </div>
+                    
+                    <div style="line-height: 1.8; color: #334155;">
+                        <p style="margin-bottom: 15px;">
+                            Three months after the Layer 3 collapse, the person is still functioning—barely—but they're <strong>locked in survival mode</strong>. This is what we call <strong>hysteresis</strong>: the system remembers the past state and resists returning to baseline even if conditions improve slightly.
+                        </p>
+                        
+                        <div style="background: #dbeafe; padding: 15px; border-left: 4px solid #3b82f6; margin: 15px 0; border-radius: 4px;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; color: #1e40af;">💻 Current State:</p>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li><strong>Operations:</strong> ~3.8×10¹⁵ ops/sec (plateau at terrible level)</li>
+                                <li><strong>All higher layers:</strong> Remain FAILING/INACCESSIBLE</li>
+                                <li><strong>Search radius:</strong> 1.8 (completely trapped)</li>
+                                <li><strong>Energy deficit:</strong> -21.3W (worsening)</li>
+                            </ul>
+                        </div>
+                        
+                        <p style="margin-bottom: 15px;">
+                            <strong>What's different from Month 6?</strong> The metrics have plateaued, but that doesn't mean recovery—it means the system has settled into a low-energy survival state. Think of it as "powersave mode" for humans.
+                        </p>
+                        
+                        <p style="margin-bottom: 15px;">
+                            <strong>Workplace presentation:</strong>
+                        </p>
+                        <ul style="margin: 0 0 15px 20px; line-height: 2;">
+                            <li>Shows up (attendance maintained through sheer will)</li>
+                            <li>Follows routines mechanically (Automatic Mode only)</li>
+                            <li>Cannot handle novel situations (search radius 1.8)</li>
+                            <li>Emotionally flat or reactive (no bandwidth for regulation)</li>
+                            <li>Physical symptoms emerging (check Sapolsky panel for tissue damage)</li>
+                        </ul>
+                        
+                        <div style="background: #fef3c7; padding: 15px; border-left: 4px solid #f59e0b; margin: 15px 0; border-radius: 4px;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; color: #92400e;">📊 Check Financial Reality Panel:</p>
+                            <p style="margin: 0;">
+                                Scroll down to see the Impact-Weighted Accounts. By Month 9, bio-liability is accumulating massively—probably $20K+ per worker per month. Traditional GAAP still shows "profit" because these costs are externalized. This is accounting fraud.
+                            </p>
+                        </div>
+                        
+                        <div style="background: #fee2e2; padding: 15px; border-left: 4px solid #ef4444; margin: 15px 0; border-radius: 4px;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; color: #991b1b;">⚠️ Why Recovery Is Hard:</p>
+                            <p style="margin: 0;">
+                                At this point, even if the environment improved, the person wouldn't bounce back immediately. <strong>Hysteresis</strong> means the system is "magnetized" to the survival state. Recovery requires sustained intervention—months of BioBond conditions to rebuild trust, restore sleep, allow tissue healing.
+                            </p>
+                            <p style="margin: 10px 0 0 0;">
+                                This is why "just take a vacation" doesn't work. The damage is structural, not just fatigue.
+                            </p>
+                        </div>
+                        
+                        <p style="margin-top: 20px; text-align: center; padding: 15px; background: #fee2e2; border-radius: 6px; font-weight: 600; color: #991b1b;">
+                            One more month to see the final state →
+                        </p>
+                    </div>
+                `,
+                
+                12: `
+                    <div style="background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                        <h3 style="margin: 0 0 10px 0; color: white; font-size: 1.2em;">💔 Month 12: Burnout Complete</h3>
+                        <div style="background: rgba(255,255,255,0.2); padding: 12px; border-radius: 6px; margin-top: 10px;">
+                            <p style="margin: 0; font-weight: 600; color: white;">THIS IS WHAT EXTRACTIVE DESIGN PRODUCES</p>
+                        </div>
+                    </div>
+                    
+                    <div style="line-height: 1.8; color: #334155;">
+                        <p style="margin-bottom: 15px; font-size: 1.05em; font-weight: 600;">
+                            After one year in an extractive environment with 0% BioBond enforcement:
+                        </p>
+                        
+                        <div style="background: #7f1d1d; color: white; padding: 20px; border-radius: 8px; margin: 15px 0;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; font-size: 1.1em;">💻 Final Computational State:</p>
+                            <ul style="margin: 10px 0 0 20px; line-height: 2;">
+                                <li><strong>Operations:</strong> 3.5×10¹⁵ ops/sec (65% loss from baseline)</li>
+                                <li><strong>FHRI:</strong> ~28 (severe dysfunction)</li>
+                                <li><strong>C_PFC:</strong> ~35% (functionally brain-damaged by stress)</li>
+                                <li><strong>Search radius:</strong> 1.4 (cannot adapt, cannot innovate)</li>
+                                <li><strong>Layers 4-6:</strong> All INACCESSIBLE (no learning, no coordination)</li>
+                            </ul>
+                        </div>
+                        
+                        <p style="margin-bottom: 15px; font-weight: 600;">
+                            <strong>What happens next:</strong>
+                        </p>
+                        
+                        <p style="margin-bottom: 15px;">
+                            <strong>The person quits.</strong> Historical data shows 35% turnover at facilities with these conditions. This individual becomes part of that statistic.
+                        </p>
+                        
+                        <div style="background: #fee2e2; padding: 15px; border-left: 4px solid #ef4444; margin: 15px 0; border-radius: 4px;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; color: #991b1b;">💰 Total Cost (Check Financial Panel):</p>
+                            <ul style="margin: 10px 0 0 20px; color: #7f1d1d;">
+                                <li><strong>Turnover cost:</strong> $150,000 (recruiting, training replacement)</li>
+                                <li><strong>Bio-liability (cumulative):</strong> $300K+ in externalized harm</li>
+                                <li><strong>Lost productivity:</strong> Months of degraded performance</li>
+                                <li><strong>Moral injury:</strong> Immeasurable (but real)</li>
+                            </ul>
+                            <p style="margin: 15px 0 0 0; font-weight: 600; color: #991b1b;">
+                                <strong>Total organizational cost: $450K+ per worker burned out.</strong>
+                            </p>
+                        </div>
+                        
+                        <p style="margin-bottom: 15px;">
+                            <strong>But wait—check the Traditional GAAP accounting in the Financial Panel:</strong>
+                        </p>
+                        
+                        <p style="margin-bottom: 15px;">
+                            The company still shows "profit" because all these costs are OFF the balance sheet. The $300K in biological damage? Paid by government programs (Medicaid) and the worker's family (out-of-pocket medical, lost income). The $150K turnover? Treated as "operating expense," not tied to extractive practices.
+                        </p>
+                        
+                        <p style="margin-bottom: 15px; font-weight: 600; color: #991b1b;">
+                            <strong>This is fraud. This is why we need BioBond.</strong>
+                        </p>
+                        
+                        <div style="background: #dbeafe; padding: 20px; border-left: 4px solid #3b82f6; margin: 20px 0; border-radius: 4px;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; color: #0c4a6e; font-size: 1.1em;">🎯 What You've Learned:</p>
+                            <ol style="margin: 10px 0 0 20px; line-height: 2; color: #0c4a6e;">
+                                <li><strong>Computational capacity is real and measurable</strong> (operations/second, energy budget)</li>
+                                <li><strong>Layer 3 (L_GC > 0.65) is the critical threshold</strong> where cascade begins</li>
+                                <li><strong>Moral agency requires sufficient capacity</strong> (Manual Mode needs energy)</li>
+                                <li><strong>Search radius determines adaptation ability</strong> (trapped vs. innovative)</li>
+                                <li><strong>Extractive design produces predictable collapse</strong> (this is physics, not psychology)</li>
+                                <li><strong>Traditional accounting hides true costs</strong> (fraud, not profit)</li>
+                                <li><strong>BioBond makes harm visible</strong> (forces truth-telling)</li>
+                            </ol>
+                        </div>
+                        
+                        <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                            <p style="margin: 0 0 15px 0; font-weight: 600; font-size: 1.1em;">✨ Now Try This:</p>
+                            <p style="margin: 0 0 10px 0;">
+                                <strong>Exit this demo</strong> and configure your own comparison:
+                            </p>
+                            <ul style="margin: 10px 0 0 20px; line-height: 2;">
+                                <li><strong>Scenario A:</strong> Extractive + 0% BioBond (what you just saw)</li>
+                                <li><strong>Scenario B:</strong> Metabolic + 100% BioBond (the alternative)</li>
+                            </ul>
+                            <p style="margin: 15px 0 0 0;">
+                                Watch the SAME person thrive in bio-compatible design. Same genetics, 271% more capacity. That's the power of institutional design.
+                            </p>
+                        </div>
+                        
+                        <p style="margin-top: 20px; text-align: center;">
+                            <button onclick="exitDemo()" style="background: #f59e0b; color: white; padding: 15px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1em; font-weight: 600; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                                Exit Demo & Create Your Own Comparison
+                            </button>
+                        </p>
+                    </div>
+                `
+            };
+            
+            // Default narration for months not explicitly defined
+            const defaultNarration = `
+                <div style="padding: 20px; background: #f8fafc; border-radius: 8px;">
+                    <h3 style="color: #64748b; margin-bottom: 15px;">Month ${month}</h3>
+                    <p style="line-height: 1.8; color: #475569;">
+                        Observe the metrics panels below to see how this month's biological state compares to previous months. 
+                        Look for changes in computational capacity, layer status, and search radius.
+                    </p>
+                </div>
+            `;
+            
+            return narrations[month] || defaultNarration;
+        }
+        
+        function getDemo2Narration(month) {
+            // Placeholder for Demo 2 - BioBond Recovery comparison
+            return `
+                <div style="padding: 20px;">
+                    <h3 style="color: #10b981; margin-bottom: 15px;">Demo 2: BioBond Recovery - Month ${month}</h3>
+                    <p style="line-height: 1.8;">
+                        Compare the two scenarios side-by-side. Left (Extractive) vs. Right (Metabolic).
+                        Watch how the same person responds completely differently based on institutional design.
+                    </p>
+                    <div style="background: #d1fae5; padding: 15px; border-left: 4px solid #10b981; margin-top: 15px;">
+                        <p style="margin: 0; font-weight: 600;">What to observe at Month ${month}:</p>
+                        <p style="margin: 10px 0 0 0;">
+                            Check the computational capacity difference between scenarios. 
+                            How many more operations/second does the metabolic environment provide?
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function getDemo3Narration(month) {
+            // Placeholder for Demo 3 - Orchid vs Dandelion
+            return `
+                <div style="padding: 20px;">
+                    <h3 style="color: #8b5cf6; margin-bottom: 15px;">Demo 3: Orchid vs. Dandelion - Month ${month}</h3>
+                    <p style="line-height: 1.8;">
+                        Same harsh environment, different phenotypes. Left (Orchid - high sensitivity) vs. Right (Dandelion - low sensitivity).
+                    </p>
+                    <div style="background: #ede9fe; padding: 15px; border-left: 4px solid #8b5cf6; margin-top: 15px;">
+                        <p style="margin: 0; font-weight: 600;">What to observe at Month ${month}:</p>
+                        <p style="margin: 10px 0 0 0;">
+                            Compare FHRI (visible symptoms) vs. Hidden Damage panel (silent harm).
+                            Why might the "resilient" dandelion actually be in worse danger long-term?
+                        </p>
+                    </div>
+                </div>
+            `;
         }
         
         function calculateBioLiability(scenario, month) {
